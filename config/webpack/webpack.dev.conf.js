@@ -4,6 +4,7 @@ const merge = require('webpack-merge');//webpack配置文件合并
 const path = require("path");
 const baseWebpackConfig = require("./webpack.base.conf");//基础配置
 const webpackFile = require("./webpack.file.conf");//一些路径配置
+const eslintFormatter = require('react-dev-utils/eslintFormatter');
 
 let config = merge(baseWebpackConfig, {
     /*设置开发环境*/
@@ -66,6 +67,32 @@ let config = merge(baseWebpackConfig, {
                 ],
             },
             {
+                test: /\.(js|jsx)$/,
+                enforce: 'pre',
+                use: [
+                    {
+                        options: {
+                            formatter: eslintFormatter,
+                            eslintPath: require.resolve('eslint'),
+                            // @remove-on-eject-begin
+                            baseConfig: {
+                                extends: [require.resolve('eslint-config-react-app')],
+                            },
+                            //ignore: false,
+                            useEslintrc: false,
+                            // @remove-on-eject-end
+                        },
+                        loader: require.resolve('eslint-loader'),
+                    },
+                ],
+                include: [
+                    path.resolve(__dirname, "../../app")
+                ],
+                exclude: [
+                    path.resolve(__dirname, "../../node_modules")
+                ],
+            },
+            {
                 test: /\.(css|pcss)$/,
                 loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap',
                 exclude: /node_modules/
@@ -79,7 +106,7 @@ let config = merge(baseWebpackConfig, {
     /*设置api转发*/
     devServer: {
         host: '0.0.0.0',
-        port: 8080,
+        port: 8082,
         hot: true,
         inline: true,
         contentBase: path.resolve(webpackFile.devDirectory),
@@ -87,9 +114,10 @@ let config = merge(baseWebpackConfig, {
         disableHostCheck: true,
         proxy: [
             {
-                context: ['/api/**', '/u/**'],
-                target: 'http://192.168.12.100:8080/',
-                secure: false
+                context: ['/tomcat/**', '/api/**'],
+                target: 'http://localhost:8080/',
+                secure: false,
+                pathRewrite:{"^/api": ""}
             }
         ],
         /*打开浏览器 并打开本项目网址*/
