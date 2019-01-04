@@ -13,7 +13,7 @@ gulp.task('buildTime', () =>
         if(err) {
             return console.log(err);
         }
-        console.log("The file was saved!",path.resolve());
+        console.log("The file was saved!", path.resolve());
     })
 );
 /* 打包生产目录 */
