@@ -9,12 +9,13 @@ const entryBuildPath = path.resolve(__dirname, '../../entryBuild');
 rimraf.sync(entryBuildPath);
 //创建entryBuild
 fs.mkdirSync(entryBuildPath);
-const entryContent = data => `import React from 'react';
+const entryContent = data => `import 'babel-polyfill';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Index from '../app/component/${data.path}';
-import Header from '../app/component/common/Header';
-import Footer from '../app/component/common/Footer';
-ReactDOM.render([<Header key="Header"/>, <Index key="Index"/>, <Footer key="Footer"/>], document.getElementById('app'));`;
+import MyLayout from '../app/component/common/MyLayout';
+ReactDOM.render([<MyLayout key="MyLayout"/>], document.getElementById('app'));
+ReactDOM.render(<Index key="Index"/>, document.getElementById('proj-content'));`;
 /*生成webpack entry 入口文件*/
 entry.map((data) => {
     fs.writeFile(entryBuildPath + '/' + data.name + '.js', entryContent(data), 'utf8', function (err) {

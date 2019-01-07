@@ -83,8 +83,32 @@ let config = merge(baseWebpackConfig, {
                 })
             },
             {
-                test: /\.(png|jpg|gif|ttf|eot|woff|woff2|svg)$/,
-                loader: 'url-loader?limit=8192&name=[name].[hash:8].[ext]&publicPath=' + webpackFile.resourcePrefixInCss + '&outputPath=' + webpackFile.resource + '/'
+                test: /\.less$/,
+                //include: paths.appSrc,
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "less-loader",// compiles Less to CSS
+                    options: {
+                        sourceMap: true,
+                        // modifyVars: {
+                        //     'primary-color': '#1DA57A',
+                        //     'link-color': '#1DA57A',
+                        //     'border-radius-base': '2px',
+                        // },
+                        javascriptEnabled: true
+                    }
+                }]
+            },
+            {
+                test: /_iamincss\.(png|jpg|gif|ttf|eot|woff|woff2|svg)$/,
+                loader: 'url-loader?limit=92&name=[name].[hash:8].[ext]&publicPath=' + webpackFile.resourcePrefixInCss + '&outputPath=' + webpackFile.resource + '/'
+            },
+            {
+                test: /_iaminhtml\.(png|jpg|gif|ttf|eot|woff|woff2|svg)$/,
+                loader: 'url-loader?limit=92&name=[name].[hash:8].[ext]&publicPath=' + webpackFile.resourcePrefixInHtml + '&outputPath=' + webpackFile.resource + '/'
             },
             {
                 test: /\.swf$/,

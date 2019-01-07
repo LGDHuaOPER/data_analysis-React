@@ -1,0 +1,48 @@
+#app {
+  .proj-layout {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 40px 1fr 40px;
+    grid-template-rows: 40px 1fr 40px;
+    -ms-grid-columns: 40px 1fr;
+    grid-template-columns: 40px 1fr;
+    grid-template-areas: "proj-layout__icon  proj-layout__btn"
+    "proj-layout__menu  proj-layout__body"
+    "proj-layout__copy proj-layout__copy";
+    min-height: 100vh;
+    min-width: 900px;
+    .proj-layout__icon {
+      -ms-grid-row: 1;
+      -ms-grid-column: 1;
+      grid-area: proj-layout__icon;
+      line-height: 35px;
+      background-color: #3d89f9;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .proj-layout__btn {
+      -ms-grid-row: 1;
+      -ms-grid-column: 2;
+      grid-area: proj-layout__btn;
+    }
+    .proj-layout__menu {
+      -ms-grid-row: 2;
+      -ms-grid-column: 1;
+      grid-area: proj-layout__menu;
+      background-color: #191c2b;
+    }
+    .proj-layout__body {
+      -ms-grid-row: 2;
+      -ms-grid-column: 2;
+      grid-area: proj-layout__body;
+      padding: 10px;
+    }
+    .proj-layout__copy {
+      -ms-grid-row: 3;
+      -ms-grid-column: 1;
+      -ms-grid-column-span: 2;
+      grid-area: proj-layout__copy;
+      text-align: center;
+    }
+  }
+}

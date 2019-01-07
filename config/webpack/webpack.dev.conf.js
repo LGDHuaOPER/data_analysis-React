@@ -93,9 +93,51 @@ let config = merge(baseWebpackConfig, {
                 ],
             },
             {
+                // test: /\.pcss$/,
                 test: /\.(css|pcss)$/,
-                loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap',
+                // 参数importLoaders=1是为了预防css文件里面再import其他css文件，会使得import进来的不会自动加前缀
+                // loader: 'style-loader?sourceMap!css-loader?importLoaders=1&sourceMap!postcss-loader?sourceMap',
+                use: [{
+                    loader: "style-loader",
+                    options: {
+                        sourceMap: true
+                    }
+                }, {
+                    loader: "css-loader",
+                    options: {
+                        sourceMap: true,
+                        importLoaders: 1
+                    }
+                }, {
+                    loader: "postcss-loader",
+                    options: {
+                        sourceMap: true,
+                        config: {
+                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                        }
+                    }
+                }],
                 exclude: /node_modules/
+            },
+            {
+                test: /\.less$/,
+                //include: paths.appSrc,
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "less-loader",// compiles Less to CSS
+                    options: {
+                        sourceMap: true,
+                        // modifyVars: {
+                        //     'primary-color': '#1DA57A',
+                        //     'link-color': '#1DA57A',
+                        //     'border-radius-base': '2px',
+                        // },
+                        javascriptEnabled: true
+                    }
+                }]
             },
             {
                 test: /\.(png|jpg|gif|ttf|eot|woff|woff2|svg|swf)$/,
