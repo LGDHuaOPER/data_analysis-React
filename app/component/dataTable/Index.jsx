@@ -22,6 +22,17 @@ class Index extends React.Component {
         console.log(this.props)
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            tableData: nextProps.tableData,
+            selectedRowKeys: nextProps.selectedRowKeys
+        });
+    }
+
+    componentDidMount() {
+        console.log("componentDidMount", new Date())
+    }
+
     pageOnChange(page, pageSize) {
         this.setState({
             pagination: Object.assign(this.state.pagination, {

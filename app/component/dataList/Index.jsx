@@ -39,7 +39,7 @@ class Index extends React.Component {
         console.log(tableData)
         this.setState({
             tableData: tableData
-        }, () => {this.forceUpdate();})
+        });
     };
 
     render() {
