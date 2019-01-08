@@ -104,11 +104,11 @@ let config = merge(baseWebpackConfig, {
             },
             {
                 test: /_iamincss\.(png|jpg|gif|ttf|eot|woff|woff2|svg)$/,
-                loader: 'url-loader?limit=92&name=[name].[hash:8].[ext]&publicPath=' + webpackFile.resourcePrefixInCss + '&outputPath=' + webpackFile.resource + '/'
+                loader: 'url-loader?limit=8192&name=[name].[hash:8].[ext]&publicPath=' + webpackFile.resourcePrefixInCss + '&outputPath=' + webpackFile.resource + '/'
             },
             {
                 test: /_iaminhtml\.(png|jpg|gif|ttf|eot|woff|woff2|svg)$/,
-                loader: 'url-loader?limit=92&name=[name].[hash:8].[ext]&publicPath=' + webpackFile.resourcePrefixInHtml + '&outputPath=' + webpackFile.resource + '/'
+                loader: 'url-loader?limit=8192&name=[name].[hash:8].[ext]&publicPath=' + webpackFile.resourcePrefixInHtml + '&outputPath=' + webpackFile.resource + '/'
             },
             {
                 test: /\.swf$/,

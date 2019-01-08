@@ -2,22 +2,22 @@ module.exports = [
     {
         name: 'index',
         path: 'index/Index.jsx',
-        title: '首页',
-        keywords: '首页,xxx',
-        description: '这是我们的首页'
+        title: '主页面',
+        keywords: 'futureD, 数据管理, 数据分析',
+        description: 'futureD数据管理与数据分析主页面，各个模块的入口'
     },
     {
-        name: 'shop',
-        path: 'shop/Index.jsx',
-        title: '商城',
-        keywords: '商城,xxx',
-        description: '这是我们的商城'
+        name: 'dataList',
+        path: 'dataList/Index.jsx',
+        title: '数据管理',
+        keywords: 'futureD, 数据管理, 数据分析',
+        description: 'futureD数据管理与数据分析的数据管理主页面'
     },
     {
-        name: 'demo',
-        path: 'demo/Index.jsx',
-        title: 'demo',
-        keywords: 'demo,xxx',
-        description: '这是我们的demo'
+        name: 'projectAnalysis',
+        path: 'projectAnalysis/Index.jsx',
+        title: '工程分析',
+        keywords: 'futureD, 数据管理, 数据分析',
+        description: 'futureD数据管理与数据分析的工程分析主页面'
     }
 ];
