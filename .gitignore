@@ -1,6 +1,8 @@
 /.svn/
 /.cache-loader/
 /.idea/
-/node_modules/
-/dist/
 /backup/
+/devBuild/
+/dist/
+/entryBuild/
+/node_modules/
