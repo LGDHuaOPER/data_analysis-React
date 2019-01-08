@@ -33,6 +33,15 @@ class Index extends React.Component {
         }
     }
 
+    onSearch(value, event) {
+        let tableData = Object.assign([], this.state.tableData);
+        tableData.pop();
+        console.log(tableData)
+        this.setState({
+            tableData: tableData
+        }, () => {this.forceUpdate();})
+    };
+
     render() {
         return (
             <div className="dataList-body">
@@ -51,7 +60,7 @@ class Index extends React.Component {
                                 <div style={{display: 'inline-block'}}>
                                     <Search
                                         placeholder="请输入搜索值"
-                                        onSearch={value => console.log(value)}
+                                        onSearch={this.onSearch.bind(this)}
                                         enterButton = {false}
                                         allowClear
                                         style={{width: 300}}
