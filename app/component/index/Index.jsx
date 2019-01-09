@@ -18,6 +18,8 @@ const routes = [{
     // console.log(this); // Index react组件
     // console.log(event.currentTarget.getAttribute('data-ipage')); // 绑定事件的元素
     // console.log(event.target); // 被点击的元素
+    // currentTarget 返回其事件监听器触发该事件的元素。
+    // target 返回触发此事件的元素（事件的目标节点）。
 };*/
 
 class Index extends React.Component {

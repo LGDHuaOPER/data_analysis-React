@@ -2,7 +2,7 @@ let tableData = [{
     key: '0',
     firstName: 'John',
     lastName: 'Brown',
-    age: 32,
+    age: 33,
     address: 'New York No. 1 Lake Park',
     tags: ['nice', 'developer'],
 }, {
@@ -37,7 +37,7 @@ let tableData = [{
     key: '5',
     firstName: 'John',
     lastName: 'Brown',
-    age: 32,
+    age: 55,
     address: 'New York No. 1 Lake Park',
     tags: ['nice', 'developer'],
 }, {
@@ -58,7 +58,7 @@ let tableData = [{
     key: '8',
     firstName: 'Joee',
     lastName: 'Blacck',
-    age: 32,
+    age: 77,
     address: 'Sidney No. 1 Lake Park',
     tags: ['cool'],
 }, {

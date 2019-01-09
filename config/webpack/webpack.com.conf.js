@@ -6,15 +6,6 @@ let titleFun = function(chunkName, title){
     return titleDef + '_' + title;
 };
 
-// 用于在css里和不在css里的资源路径
-let resourcePathPrefix = function(fileName){
-    if(/_iamincss/.test(fileName)){
-        return webpackFile.resourcePrefixInCss;
-    }else{
-        return webpackFile.resourcePrefix;
-    }
-};
 module.exports = {
-    titleFun,
-    resourcePathPrefix
+    titleFun
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Icon, Table, Divider, Tag, LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import _ from 'lodash';
+import eventProxy from '../../public/js/eventProxy';
 import 'antd/dist/antd.less';  // or 'antd/dist/antd.css'
 
 const { Column, ColumnGroup } = Table;
@@ -24,22 +25,23 @@ class Index extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
+            selectedRowKeys: nextProps.selectedRowKeys,
             tableData: nextProps.tableData,
-            selectedRowKeys: nextProps.selectedRowKeys
+            pagination: nextProps.pagination
         });
     }
 
     componentDidMount() {
-        console.log("componentDidMount", new Date())
+        console.log("dataTable componentDidMount", new Date())
+    }
+
+    componentDidUpdate() {
+        console.log("dataTable componentDidUpdate", new Date())
     }
 
     pageOnChange(page, pageSize) {
-        this.setState({
-            pagination: Object.assign(this.state.pagination, {
-                current: page,
-                pageSize: pageSize
-            })
-        });
+        // 发布 pageANDPageSize 事件
+        eventProxy.trigger('pageANDPageSize', page, pageSize);
     }
 
     pageOnShowSizeChange(current, size) {
@@ -49,12 +51,16 @@ class Index extends React.Component {
         //         pageSize: size
         //     })
         // }, () => {this.forceUpdate();});
-        this.setState((prevState, props) => ({
-            pagination: Object.assign(this.state.pagination, {
-                current: current,
-                pageSize: size
-            })
-        }), () => {this.forceUpdate();});
+
+        // this.setState((prevState, props) => ({
+        //     pagination: Object.assign({}, this.state.pagination, {
+        //         current: current,
+        //         pageSize: size
+        //     })
+        // }), () => {this.forceUpdate();});
+        eventProxy.trigger('pageANDPageSize', current, size, () => {
+            this.forceUpdate();
+        });
     }
 
     render() {
