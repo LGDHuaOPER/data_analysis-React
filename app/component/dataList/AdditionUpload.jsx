@@ -32,8 +32,9 @@ class AdditionUpload extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            DrawerVisible: this.props.DrawerVisible,
-            AutoCompleteDataSource: props.AutoCompleteDataSource
+            AutoCompleteDataSource: props.AutoCompleteDataSource,
+            DrawerHeight: this.props.DrawerHeight,
+            DrawerVisible: this.props.DrawerVisible
         };
         this.dataStore = {
             AutoCompleteAllData: props.AutoCompleteAllData
@@ -42,8 +43,9 @@ class AdditionUpload extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            DrawerVisible: nextProps.DrawerVisible,
-            AutoCompleteDataSource: nextProps.AutoCompleteDataSource
+            AutoCompleteDataSource: nextProps.AutoCompleteDataSource,
+            DrawerHeight: nextProps.DrawerHeight,
+            DrawerVisible: nextProps.DrawerVisible
         });
     }
 
@@ -51,9 +53,18 @@ class AdditionUpload extends React.Component {
         eventProxy.trigger('DrawerOnClose', false);
     }
 
+    DrawerOnResize(event) {
+        console.log(event)
+    }
+
     AutoCompleteOnSearch(value) {
         let AutoCompleteDataSource = this.dataStore.AutoCompleteAllData.filter((v) => _.toString(v).includes(value));
         eventProxy.trigger('AutoCompleteOnSearch', AutoCompleteDataSource);
+    }
+
+    TextAreaOnPressEnter(e) {
+        let preHeight = parseFloat(e.currentTarget.style.height);
+        if(preHeight < 113) eventProxy.trigger('TextAreaOnPressEnter', preHeight+390);
     }
 
     render() {
@@ -61,15 +72,16 @@ class AdditionUpload extends React.Component {
             <Drawer
                 destroyOnClose={true}
                 getContainer='body'
-                height={400}
+                height={this.state.DrawerHeight}
                 placement={'top'}
                 title='添加上传'
                 visible={this.state.DrawerVisible}
                 onClose={this.DrawerOnClose.bind(this)}
+                onResize={this.DrawerOnClose.bind(this)}
             >
-                <Row align="middle" justify="center" gutter={0}>
-                    <Col xs={{ span: 22, offset: 1 }} sm={{ span: 10, offset: 1 }} md={{ span: 10, offset: 1 }} lg={{ span: 6, offset: 1 }} xl={{ span: 6, offset: 1 }} xxl={{ span: 6, offset: 1 }}>
-                        <Row align="middle" justify="center" gutter={0}>
+                <Row type="flex" align="top" justify="space-around" gutter={0}>
+                    <Col xs={22} sm={10} md={10} lg={10} xl={7} xxl={7} style={{marginTop: 5}}>
+                        <Row gutter={0}>
                             <Col span={6}>数据格式<span style={{color: 'red', fontWeight: 600, fontSize: 16}}>*</span></Col>
                             <Col xs={18} sm={18} md={18} lg={18} xl={18} xxl={18}>
                                 <Select
@@ -113,8 +125,8 @@ class AdditionUpload extends React.Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col xs={{ span: 22, offset: 1 }} sm={{ span: 10, offset: 1 }} md={{ span: 10, offset: 1 }} lg={{ span: 6, offset: 1 }} xl={{ span: 6, offset: 1 }} xxl={{ span: 6, offset: 1 }}>
-                        <Row align="middle" justify="center" gutter={0}>
+                    <Col xs={22} sm={10} md={10} lg={10} xl={7} xxl={7} style={{marginTop: 5}}>
+                        <Row gutter={0}>
                             <Col span={6}>产品类别<span style={{color: 'red', fontWeight: 600, fontSize: 16}}>*</span></Col>
                             <Col xs={18} sm={18} md={18} lg={18} xl={18} xxl={18}>
                                 <AutoComplete
@@ -130,17 +142,21 @@ class AdditionUpload extends React.Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 22, offset: 1 }} lg={{ span: 6, offset: 1 }} xl={{ span: 6, offset: 1 }} xxl={{ span: 6, offset: 1 }}>
-                        <Row align="middle" justify="center" gutter={0}>
-                            <Col span={6}>描述</Col>
-                            <Col xs={18} sm={18} md={18} lg={18} xl={18} xxl={18}>
-                                <TextArea maxlength='100' placeholder="最多输入100个字符" autosize={{ minRows: 1, maxRows: 5 }} />
+                    <Col xs={22} sm={22} md={22} lg={22} xl={7} xxl={7} style={{marginTop: 5}}>
+                        <Row gutter={0}>
+                            <Col xs={6} sm={4} md={4} lg={4} xl={4} xxl={4}>描述</Col>
+                            <Col xs={18} sm={20} md={20} lg={20} xl={20} xxl={20}>
+                                <TextArea maxLength='100'
+                                          placeholder="最多输入100个字符"
+                                          autosize={{ minRows: 1, maxRows: 5 }}
+                                          onPressEnter={this.TextAreaOnPressEnter.bind(this)}
+                                />
                             </Col>
                         </Row>
                     </Col>
                 </Row>
-                <div style={{height: 260, maxHeight: 260, overflowY: 'auto'}}>
-                    <Row align="middle" justify="center" gutter={0} style={{marginTop: 10}}>
+                <div style={{marginTop: 5, height: 260, maxHeight: 260, overflowY: 'auto'}}>
+                    <Row gutter={0} style={{marginTop: 5}}>
                         <Dragger {...DraggerProps}>
                             <p className="ant-upload-drag-icon">
                                 <Icon type="inbox" />

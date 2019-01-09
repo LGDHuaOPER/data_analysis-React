@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Breadcrumb, Row, Col, Button, Icon, Input, Table, Divider, Tag, Drawer } from 'antd';
 import _ from 'lodash';
 import dayjs from 'dayjs';
@@ -42,6 +43,7 @@ class Index extends React.Component {
             pageSize: 10,
             tableData: _.cloneDeep(allTableData),
             DrawerVisible: false,
+            DrawerHeight: 400,
             AutoCompleteDataSource: ['测试','梦颖','阿华','ying','hua','1234567890','abcdefghijklmn','opqrstuvwxyz'],
             AutoCompleteAllData: ['测试','梦颖','阿华','ying','hua','1234567890','abcdefghijklmn','opqrstuvwxyz']
         };
@@ -70,12 +72,43 @@ class Index extends React.Component {
                 this.setState({
                     AutoCompleteDataSource
                 });
+            },
+            'TextAreaOnPressEnter': (DrawerHeight) => {
+                this.setState({
+                    DrawerHeight
+                });
             }
         });
+        window.addEventListener('resize', this.onWindowResize.bind(this));
     }
 
     componentDidUpdate() {
         console.log("dataList componentDidUpdate", new Date())
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onWindowResize.bind(this));
+    }
+
+    onWindowResize() {
+        let AdditionUpload = this.refs.AdditionUpload;
+        let dom = ReactDOM.findDOMNode(AdditionUpload);
+        if(!_.isNil(dom)){
+            let RP = myUtil.DOM.getRP(),
+            iH = dom.clientHeight;
+            console.log(dom)
+            console.log(RP)
+            console.log(iH)
+            if(['xxl', 'xl'].includes(RP)){
+                this.setState({
+                    DrawerHeight: iH >= 600 ? 600 : iH
+                });
+            }else{
+                this.setState({
+                    DrawerHeight: iH <= 700 ? 700 : iH
+                });
+            }
+        }
     }
 
     InputOnSearch(value, event) {
@@ -163,9 +196,12 @@ class Index extends React.Component {
                         }} />
                     </div>
                 </div>
-                <AdditionUpload DrawerVisible={this.state.DrawerVisible}
-                                AutoCompleteDataSource={this.state.AutoCompleteDataSource}
-                                AutoCompleteAllData={this.state.AutoCompleteAllData} />
+                <AdditionUpload
+                    ref='AdditionUpload'
+                    AutoCompleteDataSource={this.state.AutoCompleteDataSource}
+                    AutoCompleteAllData={this.state.AutoCompleteAllData}
+                    DrawerHeight={this.state.DrawerHeight}
+                    DrawerVisible={this.state.DrawerVisible} />
             </div>
         );
     }

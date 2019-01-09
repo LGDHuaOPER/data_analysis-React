@@ -39,8 +39,8 @@ class Index extends React.Component {
                 <div className="index-body__cont">
                     <div className="index-body__cont--info" style={{fontSize: '16px'}}>{this.state.userName}，您好！欢迎使用futureD数据管理与分析系统</div>
                     <div className="index-body__cont--entry">
-                        <Row align="middle" justify="center" gutter={0}>
-                            <Col xs={{ span: 20, offset: 2 }} sm={{ span: 16, offset: 4 }} md={{ span: 14, offset: 5 }} lg={{ span: 8, offset: 2 }} xl={{ span: 8, offset: 2 }} xxl={{ span: 6, offset: 3 }}>
+                        <Row type="flex" align="middle" justify="space-around" gutter={0}>
+                            <Col xs={20} sm={18} md={16} lg={10} xl={8} xxl={7}>
                                 <Card
                                     hoverable
                                     style={{ margin: '6% auto', padding: '8% 8% 4%', width: '80%' }}
@@ -56,7 +56,7 @@ class Index extends React.Component {
                                     />
                                 </Card>
                             </Col>
-                            <Col xs={{ span: 20, offset: 2 }} sm={{ span: 16, offset: 4 }} md={{ span: 14, offset: 5 }} lg={{ span: 8, offset: 2 }} xl={{ span: 8, offset: 2 }} xxl={{ span: 6, offset: 3 }}>
+                            <Col xs={20} sm={18} md={16} lg={10} xl={8} xxl={7}>
                                 <Card
                                     hoverable
                                     style={{ margin: '6% auto', padding: '8% 8% 4%', width: '80%' }}
