@@ -52,6 +52,67 @@ class Index extends React.Component {
         }
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log("dataList getDerivedStateFromProps ? nextProps", nextProps);
+        console.log("dataList getDerivedStateFromProps ? prevState", prevState);
+        // console.log("dataList getDerivedStateFromProps ? nextProps", JSON.stringify(nextProps));
+        // console.log("dataList getDerivedStateFromProps ? prevState", JSON.stringify(prevState));
+        return null;
+    }
+
+    render() {
+        return (
+            <div className="dataList-body">
+                <div className="dataList-body__nav"><Breadcrumb itemRender={myUtil.Nav.itemRenderWrap(routes)} routes={routes} separator=">"/></div>
+                <div className="dataList-body__cont">
+                    <div className="dataList-body__cont--opera">
+                        <Row align="middle" justify="center" gutter={0}>
+                            <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 16, offset: 0 }} lg={{ span: 16, offset: 0 }} xl={{ span: 16, offset: 0 }} xxl={{ span: 16, offset: 0 }}>
+                                <ButtonGroup>
+                                    <Button type="default" icon="plus-circle" title="添加上传" onClick={this.btnOnClick.bind(this)} />
+                                    <Button type="default" icon="close" title="删除选中"></Button>
+                                    <Button type="default" icon="delete" title="跳转至回收站" href="recycle.html" />
+                                </ButtonGroup>
+                            </Col>
+                            <Col style={{textAlign: ['xxl', 'xl', 'lg', 'md'].includes(myUtil.DOM.getRP()) ? 'right' : 'left', marginTop: ['xxl', 'xl', 'lg', 'md'].includes(myUtil.DOM.getRP()) ? 0 : 5}} xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 8, offset: 0 }} lg={{ span: 8, offset: 0 }} xl={{ span: 8, offset: 0 }} xxl={{ span: 8, offset: 0 }}>
+                                <div style={{display: 'inline-block'}}>
+                                    <Search
+                                        placeholder="请输入搜索值"
+                                        enterButton = {false}
+                                        allowClear
+                                        style={{width: 300}}
+                                        onSearch={this.InputOnSearch.bind(this)}
+                                        onChange={this.InputOnChange.bind(this)}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                    <div className="dataList-body__cont--table" style={{marginTop: 10}}>
+                        <DataTable
+                            pagination={{
+                                current: this.state.currentPage,
+                                pageSize: this.state.pageSize,
+                                pageSizeOptions: ['2', '5', '10', '20', '50'],
+                                showSizeChanger: true,
+                                showQuickJumper: true
+                            }}
+                            selectedRowKeys={this.state.selectedRowKeys}
+                            stateKeyInProps={['pagination', 'selectedRowKeys', 'tableData']}
+                            tableData={this.state.tableData}
+                        />
+                    </div>
+                </div>
+                <AdditionUpload
+                    ref='AdditionUpload'
+                    AutoCompleteDataSource={this.state.AutoCompleteDataSource}
+                    AutoCompleteAllData={this.state.AutoCompleteAllData}
+                    DrawerHeight={this.state.DrawerHeight}
+                    DrawerVisible={this.state.DrawerVisible} />
+            </div>
+        );
+    }
+
     componentDidMount() {
         // 监听事件
         eventProxy.on({
@@ -81,14 +142,36 @@ class Index extends React.Component {
         });
         window.addEventListener('resize', _.debounce(this.onWindowResize.bind(this), 200), true);
         // window.addEventListener('resize', this.onWindowResize.bind(this), true);
+        console.log("dataList componentDidMount ? ?", new Date());
     }
 
-    componentDidUpdate() {
-        console.log("dataList componentDidUpdate", new Date())
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        console.log("dataList shouldComponentUpdate ? nextProps", nextProps);
+        console.log("dataList shouldComponentUpdate ? nextState", nextState);
+        console.log("dataList shouldComponentUpdate ? nextContext", nextContext);
+        return true;
+    }
+
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        console.log("dataList getSnapshotBeforeUpdate ? prevProps", prevProps);
+        console.log("dataList getSnapshotBeforeUpdate ? prevState", prevState);
+        return null;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("dataList componentDidUpdate ? prevProps", prevProps);
+        console.log("dataList componentDidUpdate ? prevState", prevState);
+        console.log("dataList componentDidUpdate ? snapshot", snapshot);
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.onWindowResize, true);
+        console.log("dataList componentWillUnmount ? ?", new Date());
+    }
+
+    componentDidCatch(errorString, errorInfo) {
+        console.warn("dataList componentDidCatch ? errorString", errorString);
+        console.warn("dataList componentDidCatch ? errorInfo", errorInfo);
     }
 
     onWindowResize() {
@@ -157,59 +240,6 @@ class Index extends React.Component {
         this.setState({
             DrawerVisible: true
         });
-    }
-
-    render() {
-        return (
-            <div className="dataList-body">
-                <div className="dataList-body__nav"><Breadcrumb itemRender={myUtil.Nav.itemRenderWrap(routes)} routes={routes} separator=">"/></div>
-                <div className="dataList-body__cont">
-                    <div className="dataList-body__cont--opera">
-                        <Row align="middle" justify="center" gutter={0}>
-                            <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 16, offset: 0 }} lg={{ span: 16, offset: 0 }} xl={{ span: 16, offset: 0 }} xxl={{ span: 16, offset: 0 }}>
-                                <ButtonGroup>
-                                    <Button type="default" icon="plus-circle" title="添加上传" onClick={this.btnOnClick.bind(this)} />
-                                    <Button type="default" icon="close" title="删除选中"></Button>
-                                    <Button type="default" icon="delete" title="跳转至回收站" href="recycle.html" />
-                                </ButtonGroup>
-                            </Col>
-                            <Col style={{textAlign: ['xxl', 'xl', 'lg', 'md'].includes(myUtil.DOM.getRP()) ? 'right' : 'left', marginTop: ['xxl', 'xl', 'lg', 'md'].includes(myUtil.DOM.getRP()) ? 0 : 5}} xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 8, offset: 0 }} lg={{ span: 8, offset: 0 }} xl={{ span: 8, offset: 0 }} xxl={{ span: 8, offset: 0 }}>
-                                <div style={{display: 'inline-block'}}>
-                                    <Search
-                                        placeholder="请输入搜索值"
-                                        enterButton = {false}
-                                        allowClear
-                                        style={{width: 300}}
-                                        onSearch={this.InputOnSearch.bind(this)}
-                                        onChange={this.InputOnChange.bind(this)}
-                                    />
-                                </div>
-                            </Col>
-                        </Row>
-                    </div>
-                    <div className="dataList-body__cont--table" style={{marginTop: 10}}>
-                        <DataTable
-                            pagination={{
-                                current: this.state.currentPage,
-                                pageSize: this.state.pageSize,
-                                pageSizeOptions: ['2', '5', '10', '20', '50'],
-                                showSizeChanger: true,
-                                showQuickJumper: true
-                            }}
-                            selectedRowKeys={this.state.selectedRowKeys}
-                            stateKeyInProps={['pagination', 'selectedRowKeys', 'tableData']}
-                            tableData={this.state.tableData}
-                        />
-                    </div>
-                </div>
-                <AdditionUpload
-                    ref='AdditionUpload'
-                    AutoCompleteDataSource={this.state.AutoCompleteDataSource}
-                    AutoCompleteAllData={this.state.AutoCompleteAllData}
-                    DrawerHeight={this.state.DrawerHeight}
-                    DrawerVisible={this.state.DrawerVisible} />
-            </div>
-        );
     }
 }
 
