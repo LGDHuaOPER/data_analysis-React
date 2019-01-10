@@ -79,7 +79,8 @@ class Index extends React.Component {
                 });
             }
         });
-        window.addEventListener('resize', this.onWindowResize.bind(this));
+        window.addEventListener('resize', _.debounce(this.onWindowResize.bind(this), 200), true);
+        // window.addEventListener('resize', this.onWindowResize.bind(this), true);
     }
 
     componentDidUpdate() {
@@ -87,25 +88,25 @@ class Index extends React.Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.onWindowResize.bind(this));
+        window.removeEventListener('resize', this.onWindowResize, true);
     }
 
     onWindowResize() {
+        console.log(this)
         let AdditionUpload = this.refs.AdditionUpload;
         let dom = ReactDOM.findDOMNode(AdditionUpload);
         if(!_.isNil(dom)){
             let RP = myUtil.DOM.getRP(),
-            iH = dom.clientHeight;
-            console.log(dom)
-            console.log(RP)
-            console.log(iH)
+            // iH = dom.clientHeight; // 最外部容器高度
+                iprops = AdditionUpload.props,
+            iH = _.isEmpty(iprops) ? 400 : iprops.DrawerHeight;
             if(['xxl', 'xl'].includes(RP)){
                 this.setState({
-                    DrawerHeight: iH >= 600 ? 600 : iH
+                    DrawerHeight: iH >= 500 ? 500 : iH
                 });
             }else{
                 this.setState({
-                    DrawerHeight: iH <= 700 ? 700 : iH
+                    DrawerHeight: iH <= 550 ? 550 : iH
                 });
             }
         }
@@ -187,13 +188,18 @@ class Index extends React.Component {
                         </Row>
                     </div>
                     <div className="dataList-body__cont--table" style={{marginTop: 10}}>
-                        <DataTable tableData={this.state.tableData} selectedRowKeys={this.state.selectedRowKeys} pagination={{
-                            current: this.state.currentPage,
-                            pageSize: this.state.pageSize,
-                            pageSizeOptions: ['2', '5', '10', '20', '50'],
-                            showSizeChanger: true,
-                            showQuickJumper: true
-                        }} />
+                        <DataTable
+                            pagination={{
+                                current: this.state.currentPage,
+                                pageSize: this.state.pageSize,
+                                pageSizeOptions: ['2', '5', '10', '20', '50'],
+                                showSizeChanger: true,
+                                showQuickJumper: true
+                            }}
+                            selectedRowKeys={this.state.selectedRowKeys}
+                            stateKeyInProps={['pagination', 'selectedRowKeys', 'tableData']}
+                            tableData={this.state.tableData}
+                        />
                     </div>
                 </div>
                 <AdditionUpload
