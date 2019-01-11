@@ -3,6 +3,9 @@ import { Breadcrumb, Card, Row, Col } from 'antd';
 import myUtil from '../../public/js/myUtil';
 import 'antd/dist/antd.less';  // or 'antd/dist/antd.css'
 import '../../public/css/index.pcss';
+import myLifeCircle from "../../public/js/myLifeCircle";
+import eventProxy from "../../public/js/eventProxy";
+import _ from "lodash";
 
 // const {Header, Sider, Content, Footer} = Layout;
 const { Meta } = Card;
@@ -23,15 +26,23 @@ const routes = [{
 };*/
 
 class Index extends React.Component {
-    constructor(props) {
+    constructor(props, context) {
         super();
         this.state = {
             userName: 'Admin',
         }
     }
+
     changeUserName(userName) {
         this.setState({userName:userName});
     }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log("Index getDerivedStateFromProps ? nextProps", nextProps);
+        console.log("Index getDerivedStateFromProps ? prevState", prevState);
+        return null;
+    }
+
     render() {
         return (
             <div className="index-body">
@@ -87,6 +98,40 @@ class Index extends React.Component {
 
             </div>
         );
+    }
+
+    componentDidMount() {
+        // 监听事件和请求数据
+        console.log("Index componentDidMount ? ?", new Date());
+    }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        console.log("Index shouldComponentUpdate ? nextProps", nextProps);
+        console.log("Index shouldComponentUpdate ? nextState", nextState);
+        console.log("Index shouldComponentUpdate ? nextContext", nextContext);
+        // 因为是页面的顶级组件，需要总是触发render
+        return true;
+    }
+
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        console.log("Index getSnapshotBeforeUpdate ? prevProps", prevProps);
+        console.log("Index getSnapshotBeforeUpdate ? prevState", prevState);
+        return null;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("Index componentDidUpdate ? prevProps", prevProps);
+        console.log("Index componentDidUpdate ? prevState", prevState);
+        console.log("Index componentDidUpdate ? snapshot", snapshot);
+    }
+
+    componentWillUnmount() {
+        console.log("Index componentWillUnmount ? ?", new Date());
+    }
+
+    componentDidCatch(errorString, errorInfo) {
+        console.warn("Index componentDidCatch ? errorString", errorString);
+        console.warn("Index componentDidCatch ? errorInfo", errorInfo);
     }
 }
 

@@ -1,18 +1,29 @@
 module.exports = {
   plugins: [
       require('precss'),
-      require('postcss-cssnext')({
-          // features: {
-          //     customProperties: {
-          //         variables: {
-          //             mainColor: "red",
-          //             altColor: "blue"
-          //         }
-          //     }
-          // }
-      }),
-      // require('autoprefixer')({
-      //     browsers: ['last 10 versions','Firefox >= 20','Android >= 4.0','iOS >= 8', 'IE >= 10']
-      // })
+      // require('postcss-cssnext')({
+      //     features: {
+      //         customProperties: {
+      //             variables: {
+      //                 mainColor: "red",
+      //                 altColor: "blue"
+      //             }
+      //         }
+      //     },
+      //     browsers: [
+      //         "last 3 version",
+      //         "> 2%",
+      //         "not ie <= 9",
+      //         "iOS >= 7",
+      //         "Android >= 4.0"
+      //     ]
+      // }),
+      require('autoprefixer')({
+           cascade: true, //是否美化属性值 默认：true 像这样：
+               //-webkit-transform: rotate(45deg);
+               //        transform: rotate(45deg);
+           remove: false, //是否去掉不必要的前缀 默认：true
+           grid: "autoplace"
+      })
   ]
 };

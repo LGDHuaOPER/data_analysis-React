@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
 import myUtil from '../../public/js/myUtil';
 import eventProxy from '../../public/js/eventProxy';
+import myLifeCircle from '../../public/js/myLifeCircle';
 import 'antd/dist/antd.less';  // or 'antd/dist/antd.css'
 
 const { Option, OptGroup } = Select;
@@ -29,45 +30,34 @@ const DraggerProps = {
 };
 
 class AdditionUpload extends React.Component {
-    constructor(props) {
+    constructor(props, context) {
         super(props);
         this.state = {
-            AutoCompleteDataSource: props.AutoCompleteDataSource,
-            DrawerHeight: this.props.DrawerHeight,
-            DrawerVisible: this.props.DrawerVisible
+            AutoCompleteDataSource: this.props.AutoCompleteDataSource,
+            DrawerHeight: props.DrawerHeight,
+            DrawerVisible: props.DrawerVisible,
+            stateKeyInProps: props.stateKeyInProps,
+            componentLastProps: props
         };
+        //新的ref绑定方法
+        this.dataStore = React.createRef();
         this.dataStore = {
             AutoCompleteAllData: props.AutoCompleteAllData
         };
+        console.log("AdditionUpload constructor ? this", this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            AutoCompleteDataSource: nextProps.AutoCompleteDataSource,
-            DrawerHeight: nextProps.DrawerHeight,
-            DrawerVisible: nextProps.DrawerVisible
+    static getDerivedStateFromProps(nextProps, prevState) {
+        return myLifeCircle.getDerivedStateFromProps({
+            componentName: "AdditionUpload",
+            nextProps: nextProps,
+            prevState: prevState,
+            customReturn: null
         });
     }
 
-    DrawerOnClose() {
-        eventProxy.trigger('DrawerOnClose', false);
-    }
-
-    DrawerOnResize(event) {
-        console.log(event)
-    }
-
-    AutoCompleteOnSearch(value) {
-        let AutoCompleteDataSource = this.dataStore.AutoCompleteAllData.filter((v) => _.toString(v).includes(value));
-        eventProxy.trigger('AutoCompleteOnSearch', AutoCompleteDataSource);
-    }
-
-    TextAreaOnPressEnter(e) {
-        let preHeight = parseFloat(e.currentTarget.style.height);
-        if(preHeight < 113) eventProxy.trigger('TextAreaOnPressEnter', preHeight+390);
-    }
-
     render() {
+        console.log("AdditionUpload render ? ?", new Date());
         return (
             <Drawer
                 destroyOnClose={true}
@@ -87,23 +77,23 @@ class AdditionUpload extends React.Component {
                                 <Select
                                     allowClear
                                     filterOption={(input, option) => {
-                                            if(_.eq('OptGroup', option.type.name)){
-                                                if(_.isArray(option.props.children)){
-                                                    let a = _.find(option.props.children, (v, i) => {
-                                                        return v.props.children.includes(input);
-                                                    });
-                                                    if(_.isNil(a)){
-                                                        return false;
-                                                    }else{
-                                                        return true;
-                                                    }
-                                                }else if(_.isObject(option.props.children)){
-                                                    return option.props.children.props.children.includes(input);
+                                        if(_.eq('OptGroup', option.type.name)){
+                                            if(_.isArray(option.props.children)){
+                                                let a = _.find(option.props.children, (v, i) => {
+                                                    return v.props.children.includes(input);
+                                                });
+                                                if(_.isNil(a)){
+                                                    return false;
+                                                }else{
+                                                    return true;
                                                 }
-                                            }else if(_.eq('Option', option.type.name)){
-                                                return option.props.children.includes(input);
+                                            }else if(_.isObject(option.props.children)){
+                                                return option.props.children.props.children.includes(input);
                                             }
+                                        }else if(_.eq('Option', option.type.name)){
+                                            return option.props.children.includes(input);
                                         }
+                                    }
                                     }
                                     labelInValue
                                     notFoundContent={'未找到'}
@@ -168,6 +158,59 @@ class AdditionUpload extends React.Component {
                 </div>
             </Drawer>
         );
+    }
+
+    componentDidMount() {
+        // 监听事件，请求数据
+        console.log("AdditionUpload componentDidMount ? ?", new Date());
+    }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return myLifeCircle.shouldComponentUpdate({
+            componentName: "AdditionUpload",
+            prevState: this.state,
+            nextProps: nextProps,
+            nextState: nextState,
+            nextContext: nextContext,
+            customReturn: null,
+            propsShould: true,
+            propsShouldReturn: null
+        });
+    }
+
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        console.log("AdditionUpload getSnapshotBeforeUpdate ? prevProps", prevProps);
+        console.log("AdditionUpload getSnapshotBeforeUpdate ? prevState", prevState);
+        return null;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("AdditionUpload componentDidUpdate ? prevProps", prevProps);
+        console.log("AdditionUpload componentDidUpdate ? prevState", prevState);
+        console.log("AdditionUpload componentDidUpdate ? snapshot", snapshot);
+    }
+
+    componentWillUnmount() {
+        console.log("AdditionUpload componentWillUnmount ? ?", new Date());
+    }
+
+    componentDidCatch(errorString, errorInfo) {
+        console.warn("AdditionUpload componentDidCatch ? errorString", errorString);
+        console.warn("AdditionUpload componentDidCatch ? errorInfo", errorInfo);
+    }
+
+    DrawerOnClose() {
+        eventProxy.trigger('DrawerOnClose', false);
+    }
+
+    AutoCompleteOnSearch(value) {
+        let AutoCompleteDataSource = this.dataStore.AutoCompleteAllData.filter((v) => _.toString(v).includes(value));
+        eventProxy.trigger('AutoCompleteOnSearch', AutoCompleteDataSource);
+    }
+
+    TextAreaOnPressEnter(e) {
+        let preHeight = parseFloat(e.currentTarget.style.height);
+        if(preHeight < 113) eventProxy.trigger('TextAreaOnPressEnter', preHeight+390);
     }
 }
 

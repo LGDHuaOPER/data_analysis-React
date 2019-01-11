@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import myUtil from '../../public/js/myUtil';
 import mockData from '../../public/js/mockData';
 import eventProxy from '../../public/js/eventProxy';
+import myLifeCircle from "../../public/js/myLifeCircle";
 import DataTable from '../dataTable/Index';
 import AdditionUpload from './AdditionUpload';
 import 'antd/dist/antd.less';  // or 'antd/dist/antd.css'
@@ -33,6 +34,10 @@ const routes = [{
 }];
 
 const allTableData = _.cloneDeep(mockData.tableData);
+
+myLifeCircle.setBaseOptions({
+    "getDerivedStateFromProps.componentLastProps": "componentLastProps"
+});
 
 class Index extends React.Component {
     constructor(props) {
@@ -108,7 +113,9 @@ class Index extends React.Component {
                     AutoCompleteDataSource={this.state.AutoCompleteDataSource}
                     AutoCompleteAllData={this.state.AutoCompleteAllData}
                     DrawerHeight={this.state.DrawerHeight}
-                    DrawerVisible={this.state.DrawerVisible} />
+                    DrawerVisible={this.state.DrawerVisible}
+                    stateKeyInProps={['AutoCompleteDataSource', 'DrawerHeight', 'DrawerVisible']}
+                />
             </div>
         );
     }
@@ -149,6 +156,7 @@ class Index extends React.Component {
         console.log("dataList shouldComponentUpdate ? nextProps", nextProps);
         console.log("dataList shouldComponentUpdate ? nextState", nextState);
         console.log("dataList shouldComponentUpdate ? nextContext", nextContext);
+        // 因为是页面的顶级组件，需要总是触发render
         return true;
     }
 
@@ -175,7 +183,8 @@ class Index extends React.Component {
     }
 
     onWindowResize() {
-        console.log(this)
+        console.log(this);
+        // this.forceUpdate(); 不会触发getDerivedStateFromProps和shouldComponentUpdate，直接走render
         let AdditionUpload = this.refs.AdditionUpload;
         let dom = ReactDOM.findDOMNode(AdditionUpload);
         if(!_.isNil(dom)){

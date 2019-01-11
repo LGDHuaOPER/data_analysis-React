@@ -3,7 +3,8 @@ import { Button, Icon, Table, Divider, Tag, LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import _ from 'lodash';
 import eventProxy from '../../public/js/eventProxy';
-import 'antd/dist/antd.less';  // or 'antd/dist/antd.css'
+import myLifeCircle from "../../public/js/myLifeCircle";
+import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'
 
 const { Column, ColumnGroup } = Table;
 
@@ -108,30 +109,11 @@ class Index extends React.Component {
     **这个新的函数主要致力于确保在需要state和props的时候是同步的，并致力于替换componentWillReceiveProps函数。
     这个函数将会在组件更新被调用同时也包括更新，就在constructor之后，所以你不再需要用constructor来根据props初始化state了。*/
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log("dataTable getDerivedStateFromProps ? nextProps", nextProps);
-        console.log("dataTable getDerivedStateFromProps ? prevState", prevState);
-        // console.log("dataTable getDerivedStateFromProps ? nextProps", JSON.stringify(nextProps));
-        // console.log("dataTable getDerivedStateFromProps ? prevState", JSON.stringify(prevState));
-        // 首先判断props
-        let componentLastProps = {};
-        if(!_.isEqual(nextProps, prevState.componentLastProps)){
-            componentLastProps.componentLastProps = nextProps;
-            console.log("dataTable getDerivedStateFromProps nextProps!=prevState.componentLastProps componentLastProps", componentLastProps);
-        }
-        let stateValueInPropsChange = {};
-        if(_.isEqual(_.sortBy(nextProps.stateKeyInProps), _.sortBy(prevState.stateKeyInProps))){
-            let propPick = _.pick(nextProps, nextProps.stateKeyInProps);
-            let statePick = _.pick(prevState, nextProps.stateKeyInProps);
-            if(!_.isEqual(propPick, statePick)){
-                console.log("dataTable getDerivedStateFromProps propPick!=statePick propPick", propPick);
-                console.log("dataTable getDerivedStateFromProps propPick!=statePick statePick", statePick);
-                stateValueInPropsChange = propPick;
-            }
-        }
-        let stateWillChange = _.merge({}, componentLastProps, stateValueInPropsChange);
-        console.log("dataTable getDerivedStateFromProps ? stateWillChange", stateWillChange);
-        _.isEmpty(stateWillChange) ? (stateWillChange = null) : null;
-        return stateWillChange;
+        return myLifeCircle.getDerivedStateFromProps({
+            componentName: "dataTable",
+            nextProps: nextProps,
+            prevState: prevState
+        });
     }
 
     /*alias  componentWillMount*/
@@ -163,6 +145,7 @@ class Index extends React.Component {
     render() 函数应该是纯粹的，也就是说该函数不修改组件state，每次调用都返回相同的结果，不读写 DOM 信息，也不和浏览器交互（例如通过使用 setTimeout）。
     如果需要和浏览器交互，在 componentDidMount() 中或者其它生命周期方法中做这件事。保持render() 纯粹，可以使服务器端渲染更加切实可行，也使组件更容易被理解。*/
     render() {
+        console.log("dataTable render ? ?", new Date());
         const { selectedRowKeys, tableData } = this.state;
         // rowSelection object indicates the need for row selection
         const rowSelection = {
@@ -349,10 +332,16 @@ class Index extends React.Component {
     默认情况下，shouldComponentUpdate 总会返回true，在 state 改变的时候避免细微的bug，但是如果总是小心地把 state 当做不可变的，在 render() 中只从 props 和state 读取值，此时你可以覆盖 shouldComponentUpdate 方法，实现新老 props 和state 的比对逻辑。
     如果性能是个瓶颈，尤其是有几十个甚至上百个组件的时候，使用 shouldComponentUpdate可以提升应用的性能。*/
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        console.log("dataTable shouldComponentUpdate ? nextProps", nextProps);
-        console.log("dataTable shouldComponentUpdate ? nextState", nextState);
-        console.log("dataTable shouldComponentUpdate ? nextContext", nextContext);
-        return true;
+        return myLifeCircle.shouldComponentUpdate({
+            componentName: "dataTable",
+            prevState: this.state,
+            nextProps: nextProps,
+            nextState: nextState,
+            nextContext: nextContext,
+            customReturn: null,
+            propsShould: true,
+            propsShouldReturn: null
+        });
     }
 
     /*alias  componentWillUpdate*/

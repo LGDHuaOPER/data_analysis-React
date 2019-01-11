@@ -95,7 +95,7 @@ class TemplateJSX extends React.Component {
     组件实例化。
     组件的props发生变化。
     父组件重新渲染。
-    this.setState()不会触发getDerivedStateFromProps()，但是this.forceUpdate()会。
+    this.setState()不会触发getDerivedStateFromProps()，但是this.forceUpdate()会。 // 错误，实践证明this.forceUpdate()不会触发getDerivedStateFromProps  V16.3
     **这个新的函数主要致力于确保在需要state和props的时候是同步的，并致力于替换componentWillReceiveProps函数。
     这个函数将会在组件更新被调用同时也包括更新，就在constructor之后，所以你不再需要用constructor来根据props初始化state了。*/
     static getDerivedStateFromProps(nextProps, prevState) {
