@@ -12,3 +12,4 @@ data_analysis-React
   增加TemplateJSX.jsx模板文件，部分组件增加React16.3 生命周期函数新写法以及打印信息
 - 2019/01/11  增加：V16.3生命周期函数.md文件；增加：myLifeCircle.js，用于复用生命周期函数返回值逻辑，可扩展；
 对组件内生命周期返回值进行优化
+- 2019/01/14  增加：prettier、onchange依赖，.prettierrc配置文件
