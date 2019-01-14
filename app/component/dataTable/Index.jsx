@@ -152,9 +152,10 @@ class Index extends React.Component {
       selectedRowKeys: selectedRowKeys,
       // 去掉『全选』『反选』两个默认选项
       hideDefaultSelections: true,
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        this.setState({ selectedRowKeys });
+      onChange: (newSelectedRowKeys, selectedRows) => {
+        console.log('newSelectedRowKeys', newSelectedRowKeys);
+        console.log('selectedRows', selectedRows);
+        eventProxy.trigger('dataTable__rowSelection__onChange', newSelectedRowKeys);
       },
       getCheckboxProps: (record) => ({
         disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -164,46 +165,42 @@ class Index extends React.Component {
         {
           key: 'all-data',
           text: '选中所有数据',
-          onSelect: () => {
-            this.setState({
-              selectedRowKeys: [...Array(3).keys()].map((v) => _.toString(v))
-            });
+          onSelect: (changableRowKeys) => {
+            // changableRowKeys 为当前页所有key（不管以前有没有选中）
+            eventProxy.trigger('dataTable__rowSelection__allData');
           }
         },
         {
           key: 'curPage-all-data',
           text: '选中当前页数据',
           onSelect: (changableRowKeys) => {
-            this.setState({ selectedRowKeys: [...Array(3).keys()].map((v) => _.toString(v)) });
+            eventProxy.trigger('dataTable__rowSelection__curPageAllData', changableRowKeys);
           }
         },
         {
           key: 'odd',
           text: '选中奇数行数据',
           onSelect: (changableRowKeys) => {
-            console.log(changableRowKeys);
-            let newSelectedRowKeys = [];
-            newSelectedRowKeys = changableRowKeys.filter((key, index) => {
+            let newSelectedRowKeys = changableRowKeys.filter((key, index) => {
               if (index % 2 !== 0) {
                 return false;
               }
               return true;
             });
-            this.setState({ selectedRowKeys: newSelectedRowKeys });
+            eventProxy.trigger('dataTable__rowSelection__odd', newSelectedRowKeys);
           }
         },
         {
           key: 'even',
           text: '选中偶数行数据',
           onSelect: (changableRowKeys) => {
-            let newSelectedRowKeys = [];
-            newSelectedRowKeys = changableRowKeys.filter((key, index) => {
+            let newSelectedRowKeys = changableRowKeys.filter((key, index) => {
               if (index % 2 !== 0) {
                 return true;
               }
               return false;
             });
-            this.setState({ selectedRowKeys: newSelectedRowKeys });
+            eventProxy.trigger('dataTable__rowSelection__even', newSelectedRowKeys);
           }
         }
       ]

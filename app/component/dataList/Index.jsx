@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Breadcrumb, Row, Col, Button, Icon, Input, Table, Divider, Tag, Drawer } from 'antd';
+import { Breadcrumb, Row, Col, Button, Icon, Input, Divider, Tag, Modal, message, notification } from 'antd';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
@@ -16,10 +16,9 @@ import '../../public/css/dataList.pcss';
 // dayjs.extend(relativeTime);
 // console.log(dayjs().from(dayjs(), true));
 
-// const {Header, Sider, Content, Footer} = Layout;
 const ButtonGroup = Button.Group;
 const Search = Input.Search;
-const { Column, ColumnGroup } = Table;
+const confirm = Modal.confirm;
 
 const routes = [
   {
@@ -37,9 +36,26 @@ const routes = [
 ];
 
 const allTableData = _.cloneDeep(mockData.tableData);
+const allKeys = _.cloneDeep(mockData.allKeys);
 
 myLifeCircle.setBaseOptions({
   'getDerivedStateFromProps.componentLastProps': 'componentLastProps'
+});
+
+// message配置
+message.config({
+  top: 24,
+  duration: 2,
+  maxCount: 5,
+  getContainer: () => document.body
+});
+
+// notification配置
+notification.config({
+  placement: 'topRight',
+  top: 24,
+  duration: 3,
+  getContainer: () => document.body
 });
 
 class Index extends React.Component {
@@ -86,9 +102,20 @@ class Index extends React.Component {
                 xxl={{ span: 16, offset: 0 }}
               >
                 <ButtonGroup>
-                  <Button type="default" icon="plus-circle" title="添加上传" onClick={this.btnOnClick.bind(this)} />
-                  <Button type="default" icon="close" title="删除选中" />
-                  <Button type="default" icon="delete" title="跳转至回收站" href="recycle.html" />
+                  <Button
+                    type="default"
+                    icon="plus-circle"
+                    title="添加上传"
+                    onClick={this.addUploadOnClick.bind(this)}
+                  />
+                  <Button type="default" icon="close" title="删除选中" onClick={this.delSelectedOnClick.bind(this)} />
+                  <Button
+                    type="default"
+                    icon="delete"
+                    title="跳转至回收站"
+                    href="recycle.html"
+                    onClick={this.linkRecycleOnClick.bind(this)}
+                  />
                 </ButtonGroup>
               </Col>
               <Col
@@ -139,6 +166,7 @@ class Index extends React.Component {
           DrawerVisible={this.state.DrawerVisible}
           stateKeyInProps={['AutoCompleteDataSource', 'DrawerHeight', 'DrawerVisible']}
         />
+        <Modal />
       </div>
     );
   }
@@ -171,6 +199,31 @@ class Index extends React.Component {
         this.setState({
           DrawerHeight
         });
+      },
+      dataTable__rowSelection__onChange: (selectedRowKeys) => {
+        this.setState({
+          selectedRowKeys
+        });
+      },
+      dataTable__rowSelection__allData: () => {
+        this.setState({
+          selectedRowKeys: allKeys
+        });
+      },
+      dataTable__rowSelection__curPageAllData: (curPageAllRowKeys) => {
+        this.setState((prevState, props) => ({
+          selectedRowKeys: _.uniq(_.concat(prevState.selectedRowKeys, curPageAllRowKeys))
+        }));
+      },
+      dataTable__rowSelection__odd: (newSelectedRowKeys) => {
+        this.setState((prevState, props) => ({
+          selectedRowKeys: _.uniq(_.concat(prevState.selectedRowKeys, newSelectedRowKeys))
+        }));
+      },
+      dataTable__rowSelection__even: (newSelectedRowKeys) => {
+        this.setState((prevState, props) => ({
+          selectedRowKeys: _.uniq(_.concat(prevState.selectedRowKeys, newSelectedRowKeys))
+        }));
       }
     });
     window.addEventListener('resize', _.debounce(this.onWindowResize.bind(this), 200), true);
@@ -273,11 +326,68 @@ class Index extends React.Component {
     }
   }
 
-  btnOnClick() {
+  addUploadOnClick() {
     this.setState({
       DrawerVisible: true
     });
   }
+
+  delSelectedOnClick() {
+    if (this.state.selectedRowKeys.length > 0) {
+      let that = this;
+      let iConfirm = confirm({
+        title: '你确定要删除以下行数据？',
+        content: 'Key值为' + _.sortBy(this.state.selectedRowKeys).join('、') + '的行数据将要被删除',
+        autoFocusButton: 'cancel',
+        onOk() {
+          iConfirm.update({
+            okButtonProps: {
+              disabled: true,
+              loading: true
+            }
+          });
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              notification.success({
+                key: 'delSelectedOnClick_success',
+                description: '删除成功！',
+                icon: <Icon type="check" style={{ color: '#108ee9' }} />,
+                message: '删除提示'
+              });
+              that.setState((prevState, props) => ({
+                tableData: _.filter(prevState.tableData, function(o) {
+                  return !prevState.selectedRowKeys.includes(o.key);
+                }),
+                selectedRowKeys: []
+              }));
+              setTimeout(() => {
+                notification.success({
+                  key: 'delSelectedOnClick_success',
+                  description: '正在更新界面',
+                  icon: <Icon type="smile" style={{ color: '#108ee9' }} />,
+                  message: '删除提示'
+                });
+                iConfirm.update({
+                  okButtonProps: {
+                    disabled: false,
+                    loading: false
+                  }
+                });
+                iConfirm.destroy();
+              }, 700);
+            }, 1600);
+          }).catch(() => message.error('删除失败！'));
+        },
+        onCancel() {
+          message.info('未做处理！');
+        }
+      });
+    } else {
+      message.warn('未选中行数据！', 1).then(() => message.info('请先选中数据再进行删除！'));
+    }
+  }
+
+  linkRecycleOnClick() {}
 }
 
 export default Index;
