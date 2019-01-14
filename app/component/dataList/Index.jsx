@@ -166,7 +166,6 @@ class Index extends React.Component {
           DrawerVisible={this.state.DrawerVisible}
           stateKeyInProps={['AutoCompleteDataSource', 'DrawerHeight', 'DrawerVisible']}
         />
-        <Modal />
       </div>
     );
   }

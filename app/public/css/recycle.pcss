@@ -1,0 +1,34 @@
+/* autoprefixer grid: autoplace */
+/*这里加不加上面注释都可以。gulp环境必须加*/
+.recycle-body {
+  display: flex;
+  flex-direction: column;
+  .recycle-body__nav {
+    order: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 40px;
+  }
+  .recycle-body__cont {
+    order: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 1px;
+    background-color: white;
+    .recycle-body__cont--info {
+      order: 0;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 40px;
+    }
+    .recycle-body__cont--entry {
+      order: 1;
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: auto;
+    }
+  }
+}

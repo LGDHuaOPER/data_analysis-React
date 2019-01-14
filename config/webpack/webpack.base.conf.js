@@ -6,7 +6,7 @@ for (let name in entry) {
 let config = {
     entry: newEntry,
     resolve: {
-        extensions: [".js", ".json", ".jsx", ".css", ".pcss"],
+        extensions: [".js", ".json", ".jsx", ".css", ".pcss", ".less"],
     }
 };
 module.exports = config;

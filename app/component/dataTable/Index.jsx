@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Icon, Table, Divider, Tag, LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
-import _ from 'lodash';
 import eventProxy from '../../public/js/eventProxy';
 import myLifeCircle from '../../public/js/myLifeCircle';
 import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'

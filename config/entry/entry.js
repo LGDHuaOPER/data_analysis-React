@@ -19,5 +19,12 @@ module.exports = [
         title: '工程分析',
         keywords: 'futureD, 数据管理, 数据分析',
         description: 'futureD数据管理与数据分析的工程分析主页面'
+    },
+    {
+        name: 'recycle',
+        path: 'recycle/Index.jsx',
+        title: '回收站',
+        keywords: 'futureD, 数据管理, 数据分析',
+        description: 'futureD数据管理与数据分析的回收站页面'
     }
 ];

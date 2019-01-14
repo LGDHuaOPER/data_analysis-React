@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from 'antd';
+import _ from 'lodash';
 import 'antd/dist/antd.less';  // or 'antd/dist/antd.css'
 
 let itemRenderWrap = function (routes) {
@@ -49,6 +50,18 @@ let getRP = function (unit) {
     return RP;
 };
 
+let groupItemKey = (Collection = [], keyArr = [], fromIndex = 0) => {
+    let obj = {};
+    fromIndex = fromIndex < 0 ? (fromIndex+Collection.length) : fromIndex;
+    keyArr.forEach((v, i) => {
+        obj[v] = Collection.map((vv, ii) => {
+            if(ii >= fromIndex) return vv[v];
+            return 'itemIndex@#small@#than@#fromIndex';
+        }).filter((vvv) => !_.eq(vvv, 'itemIndex@#small@#than@#fromIndex'));
+    });
+    return obj;
+};
+
 export default {
     /*导航*/
     Nav: {
@@ -62,5 +75,9 @@ export default {
     DOM: {
         getDOMAttr,
         getRP
+    },
+    /*集合*/
+    Collection: {
+        groupItemKey
     }
 };

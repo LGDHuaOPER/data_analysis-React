@@ -3,9 +3,6 @@ import { Breadcrumb, Card, Row, Col } from 'antd';
 import myUtil from '../../public/js/myUtil';
 import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'
 import '../../public/css/index.pcss';
-import myLifeCircle from '../../public/js/myLifeCircle';
-import eventProxy from '../../public/js/eventProxy';
-import _ from 'lodash';
 
 // const {Header, Sider, Content, Footer} = Layout;
 const { Meta } = Card;
