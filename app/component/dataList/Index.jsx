@@ -1,17 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Breadcrumb, Row, Col, Button, Icon, Input, Table, Divider, Tag, Drawer } from "antd";
-import _ from "lodash";
-import dayjs from "dayjs";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Breadcrumb, Row, Col, Button, Icon, Input, Table, Divider, Tag, Drawer } from 'antd';
+import _ from 'lodash';
+import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
-import myUtil from "../../public/js/myUtil";
-import mockData from "../../public/js/mockData";
-import eventProxy from "../../public/js/eventProxy";
-import myLifeCircle from "../../public/js/myLifeCircle";
-import DataTable from "../dataTable/Index";
-import AdditionUpload from "./AdditionUpload";
-import "antd/dist/antd.less"; // or 'antd/dist/antd.css'
-import "../../public/css/dataList.pcss";
+import myUtil from '../../public/js/myUtil';
+import mockData from '../../public/js/mockData';
+import eventProxy from '../../public/js/eventProxy';
+import myLifeCircle from '../../public/js/myLifeCircle';
+import DataTable from '../dataTable/Index';
+import AdditionUpload from './AdditionUpload';
+import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'
+import '../../public/css/dataList.pcss';
 
 // dayjs.extend(relativeTime);
 // console.log(dayjs().from(dayjs(), true));
@@ -23,23 +23,23 @@ const { Column, ColumnGroup } = Table;
 
 const routes = [
   {
-    path: "index",
-    breadcrumbName: "系统主页面",
-    icon: "home",
-    url: "index.html"
+    path: 'index',
+    breadcrumbName: '系统主页面',
+    icon: 'home',
+    url: 'index.html'
   },
   {
-    path: "dataList",
-    breadcrumbName: "数据管理",
-    icon: "database",
-    url: "dataList.html"
+    path: 'dataList',
+    breadcrumbName: '数据管理',
+    icon: 'database',
+    url: 'dataList.html'
   }
 ];
 
 const allTableData = _.cloneDeep(mockData.tableData);
 
 myLifeCircle.setBaseOptions({
-  "getDerivedStateFromProps.componentLastProps": "componentLastProps"
+  'getDerivedStateFromProps.componentLastProps': 'componentLastProps'
 });
 
 class Index extends React.Component {
@@ -52,26 +52,8 @@ class Index extends React.Component {
       tableData: _.cloneDeep(allTableData),
       DrawerVisible: false,
       DrawerHeight: 400,
-      AutoCompleteDataSource: [
-        "测试",
-        "梦颖",
-        "阿华",
-        "ying",
-        "hua",
-        "1234567890",
-        "abcdefghijklmn",
-        "opqrstuvwxyz"
-      ],
-      AutoCompleteAllData: [
-        "测试",
-        "梦颖",
-        "阿华",
-        "ying",
-        "hua",
-        "1234567890",
-        "abcdefghijklmn",
-        "opqrstuvwxyz"
-      ]
+      AutoCompleteDataSource: ['测试', '梦颖', '阿华', 'ying', 'hua', '1234567890', 'abcdefghijklmn', 'opqrstuvwxyz'],
+      AutoCompleteAllData: ['测试', '梦颖', '阿华', 'ying', 'hua', '1234567890', 'abcdefghijklmn', 'opqrstuvwxyz']
     };
     this.dataStore = {
       lastEmptyDate: dayjs().valueOf()
@@ -79,8 +61,8 @@ class Index extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log("dataList getDerivedStateFromProps ? nextProps", nextProps);
-    console.log("dataList getDerivedStateFromProps ? prevState", prevState);
+    console.log('dataList getDerivedStateFromProps ? nextProps', nextProps);
+    console.log('dataList getDerivedStateFromProps ? prevState', prevState);
     // console.log("dataList getDerivedStateFromProps ? nextProps", JSON.stringify(nextProps));
     // console.log("dataList getDerivedStateFromProps ? prevState", JSON.stringify(prevState));
     return null;
@@ -90,11 +72,7 @@ class Index extends React.Component {
     return (
       <div className="dataList-body">
         <div className="dataList-body__nav">
-          <Breadcrumb
-            itemRender={myUtil.Nav.itemRenderWrap(routes)}
-            routes={routes}
-            separator=">"
-          />
+          <Breadcrumb itemRender={myUtil.Nav.itemRenderWrap(routes)} routes={routes} separator=">" />
         </div>
         <div className="dataList-body__cont">
           <div className="dataList-body__cont--opera">
@@ -108,22 +86,15 @@ class Index extends React.Component {
                 xxl={{ span: 16, offset: 0 }}
               >
                 <ButtonGroup>
-                  <Button
-                    type="default"
-                    icon="plus-circle"
-                    title="添加上传"
-                    onClick={this.btnOnClick.bind(this)}
-                  />
+                  <Button type="default" icon="plus-circle" title="添加上传" onClick={this.btnOnClick.bind(this)} />
                   <Button type="default" icon="close" title="删除选中" />
                   <Button type="default" icon="delete" title="跳转至回收站" href="recycle.html" />
                 </ButtonGroup>
               </Col>
               <Col
                 style={{
-                  textAlign: ["xxl", "xl", "lg", "md"].includes(myUtil.DOM.getRP())
-                    ? "right"
-                    : "left",
-                  marginTop: ["xxl", "xl", "lg", "md"].includes(myUtil.DOM.getRP()) ? 0 : 5
+                  textAlign: ['xxl', 'xl', 'lg', 'md'].includes(myUtil.DOM.getRP()) ? 'right' : 'left',
+                  marginTop: ['xxl', 'xl', 'lg', 'md'].includes(myUtil.DOM.getRP()) ? 0 : 5
                 }}
                 xs={{ span: 22, offset: 1 }}
                 sm={{ span: 22, offset: 1 }}
@@ -132,7 +103,7 @@ class Index extends React.Component {
                 xl={{ span: 8, offset: 0 }}
                 xxl={{ span: 8, offset: 0 }}
               >
-                <div style={{ display: "inline-block" }}>
+                <div style={{ display: 'inline-block' }}>
                   <Search
                     placeholder="请输入搜索值"
                     enterButton={false}
@@ -150,12 +121,12 @@ class Index extends React.Component {
               pagination={{
                 current: this.state.currentPage,
                 pageSize: this.state.pageSize,
-                pageSizeOptions: ["2", "5", "10", "20", "50"],
+                pageSizeOptions: ['2', '5', '10', '20', '50'],
                 showSizeChanger: true,
                 showQuickJumper: true
               }}
               selectedRowKeys={this.state.selectedRowKeys}
-              stateKeyInProps={["pagination", "selectedRowKeys", "tableData"]}
+              stateKeyInProps={['pagination', 'selectedRowKeys', 'tableData']}
               tableData={this.state.tableData}
             />
           </div>
@@ -166,7 +137,7 @@ class Index extends React.Component {
           AutoCompleteAllData={this.state.AutoCompleteAllData}
           DrawerHeight={this.state.DrawerHeight}
           DrawerVisible={this.state.DrawerVisible}
-          stateKeyInProps={["AutoCompleteDataSource", "DrawerHeight", "DrawerVisible"]}
+          stateKeyInProps={['AutoCompleteDataSource', 'DrawerHeight', 'DrawerVisible']}
         />
       </div>
     );
@@ -186,55 +157,55 @@ class Index extends React.Component {
           }
         );
       },
-      DrawerOnClose: DrawerVisible => {
+      DrawerOnClose: (DrawerVisible) => {
         this.setState({
           DrawerVisible
         });
       },
-      AutoCompleteOnSearch: AutoCompleteDataSource => {
+      AutoCompleteOnSearch: (AutoCompleteDataSource) => {
         this.setState({
           AutoCompleteDataSource
         });
       },
-      TextAreaOnPressEnter: DrawerHeight => {
+      TextAreaOnPressEnter: (DrawerHeight) => {
         this.setState({
           DrawerHeight
         });
       }
     });
-    window.addEventListener("resize", _.debounce(this.onWindowResize.bind(this), 200), true);
+    window.addEventListener('resize', _.debounce(this.onWindowResize.bind(this), 200), true);
     // window.addEventListener('resize', this.onWindowResize.bind(this), true);
-    console.log("dataList componentDidMount ? ?", new Date());
+    console.log('dataList componentDidMount ? ?', new Date());
   }
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
-    console.log("dataList shouldComponentUpdate ? nextProps", nextProps);
-    console.log("dataList shouldComponentUpdate ? nextState", nextState);
-    console.log("dataList shouldComponentUpdate ? nextContext", nextContext);
+    console.log('dataList shouldComponentUpdate ? nextProps', nextProps);
+    console.log('dataList shouldComponentUpdate ? nextState', nextState);
+    console.log('dataList shouldComponentUpdate ? nextContext', nextContext);
     // 因为是页面的顶级组件，需要总是触发render
     return true;
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log("dataList getSnapshotBeforeUpdate ? prevProps", prevProps);
-    console.log("dataList getSnapshotBeforeUpdate ? prevState", prevState);
+    console.log('dataList getSnapshotBeforeUpdate ? prevProps', prevProps);
+    console.log('dataList getSnapshotBeforeUpdate ? prevState', prevState);
     return null;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("dataList componentDidUpdate ? prevProps", prevProps);
-    console.log("dataList componentDidUpdate ? prevState", prevState);
-    console.log("dataList componentDidUpdate ? snapshot", snapshot);
+    console.log('dataList componentDidUpdate ? prevProps', prevProps);
+    console.log('dataList componentDidUpdate ? prevState', prevState);
+    console.log('dataList componentDidUpdate ? snapshot', snapshot);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.onWindowResize, true);
-    console.log("dataList componentWillUnmount ? ?", new Date());
+    window.removeEventListener('resize', this.onWindowResize, true);
+    console.log('dataList componentWillUnmount ? ?', new Date());
   }
 
   componentDidCatch(errorString, errorInfo) {
-    console.warn("dataList componentDidCatch ? errorString", errorString);
-    console.warn("dataList componentDidCatch ? errorInfo", errorInfo);
+    console.warn('dataList componentDidCatch ? errorString', errorString);
+    console.warn('dataList componentDidCatch ? errorInfo', errorInfo);
   }
 
   onWindowResize() {
@@ -247,7 +218,7 @@ class Index extends React.Component {
         // iH = dom.clientHeight; // 最外部容器高度
         iprops = AdditionUpload.props,
         iH = _.isEmpty(iprops) ? 400 : iprops.DrawerHeight;
-      if (["xxl", "xl"].includes(RP)) {
+      if (['xxl', 'xl'].includes(RP)) {
         this.setState({
           DrawerHeight: iH >= 500 ? 500 : iH
         });
@@ -265,7 +236,7 @@ class Index extends React.Component {
       // console.log("this", this) // undefined
       let flag = false;
       _.forOwn(val, function(v, k) {
-        if (!["key"].includes(k)) {
+        if (!['key'].includes(k)) {
           if (_.isNumber(v) || _.isString(v)) {
             flag = _.toString(v).includes(value);
             if (flag) return false;
@@ -290,7 +261,7 @@ class Index extends React.Component {
   }
 
   InputOnChange(e) {
-    if (_.eq(_.trim(e.currentTarget.value), "")) {
+    if (_.eq(_.trim(e.currentTarget.value), '')) {
       let inow = dayjs().valueOf();
       if (inow - this.dataStore.lastEmptyDate > 3000) {
         this.setState({

@@ -1,10 +1,10 @@
-import React from "react";
-import { Button, Icon, Table, Divider, Tag, LocaleProvider } from "antd";
-import zh_CN from "antd/lib/locale-provider/zh_CN";
-import _ from "lodash";
-import eventProxy from "../../public/js/eventProxy";
-import myLifeCircle from "../../public/js/myLifeCircle";
-import "antd/dist/antd.less"; // or 'antd/dist/antd.css'
+import React from 'react';
+import { Button, Icon, Table, Divider, Tag, LocaleProvider } from 'antd';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import _ from 'lodash';
+import eventProxy from '../../public/js/eventProxy';
+import myLifeCircle from '../../public/js/myLifeCircle';
+import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'
 
 const { Column, ColumnGroup } = Table;
 
@@ -85,7 +85,7 @@ class Index extends React.Component {
       stateKeyInProps: props.stateKeyInProps,
       componentLastProps: props
     };
-    console.log("dataTable constructor ? props", props);
+    console.log('dataTable constructor ? props', props);
     // //新的ref绑定方法
     // this.inputRef = React.createRef();
     // this.textRef = React.createRef();
@@ -110,7 +110,7 @@ class Index extends React.Component {
     这个函数将会在组件更新被调用同时也包括更新，就在constructor之后，所以你不再需要用constructor来根据props初始化state了。*/
   static getDerivedStateFromProps(nextProps, prevState) {
     return myLifeCircle.getDerivedStateFromProps({
-      componentName: "dataTable",
+      componentName: 'dataTable',
       nextProps: nextProps,
       prevState: prevState
     });
@@ -128,7 +128,7 @@ class Index extends React.Component {
     在客户端执行具有副作用的函数。（译者注：原文为cause side-effects (AJAX calls etc.) in case of server-side-rendering only，但在SSR时ajax操作则会在服务端和客户端执行两次。
     **服务器端和客户端都只调用一次，在初始化渲染执行之前立刻调用。如果在这个方法内调用setState，render() 将会感知到更新后的state，将会执行仅一次，尽管 state 改变了。*/
   UNSAFE_componentWillMount() {
-    console.log("dataTable UNSAFE_componentWillMount ? ?", new Date());
+    console.log('dataTable UNSAFE_componentWillMount ? ?', new Date());
   }
 
   /*在update阶段也会调用一次这个方法。*/
@@ -145,7 +145,7 @@ class Index extends React.Component {
     render() 函数应该是纯粹的，也就是说该函数不修改组件state，每次调用都返回相同的结果，不读写 DOM 信息，也不和浏览器交互（例如通过使用 setTimeout）。
     如果需要和浏览器交互，在 componentDidMount() 中或者其它生命周期方法中做这件事。保持render() 纯粹，可以使服务器端渲染更加切实可行，也使组件更容易被理解。*/
   render() {
-    console.log("dataTable render ? ?", new Date());
+    console.log('dataTable render ? ?', new Date());
     const { selectedRowKeys, tableData } = this.state;
     // rowSelection object indicates the need for row selection
     const rowSelection = {
@@ -153,34 +153,34 @@ class Index extends React.Component {
       // 去掉『全选』『反选』两个默认选项
       hideDefaultSelections: true,
       onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
         this.setState({ selectedRowKeys });
       },
-      getCheckboxProps: record => ({
-        disabled: record.name === "Disabled User", // Column configuration not to be checked
+      getCheckboxProps: (record) => ({
+        disabled: record.name === 'Disabled User', // Column configuration not to be checked
         name: record.name
       }),
       selections: [
         {
-          key: "all-data",
-          text: "选中所有数据",
+          key: 'all-data',
+          text: '选中所有数据',
           onSelect: () => {
             this.setState({
-              selectedRowKeys: [...Array(3).keys()].map(v => _.toString(v))
+              selectedRowKeys: [...Array(3).keys()].map((v) => _.toString(v))
             });
           }
         },
         {
-          key: "curPage-all-data",
-          text: "选中当前页数据",
-          onSelect: changableRowKeys => {
-            this.setState({ selectedRowKeys: [...Array(3).keys()].map(v => _.toString(v)) });
+          key: 'curPage-all-data',
+          text: '选中当前页数据',
+          onSelect: (changableRowKeys) => {
+            this.setState({ selectedRowKeys: [...Array(3).keys()].map((v) => _.toString(v)) });
           }
         },
         {
-          key: "odd",
-          text: "选中奇数行数据",
-          onSelect: changableRowKeys => {
+          key: 'odd',
+          text: '选中奇数行数据',
+          onSelect: (changableRowKeys) => {
             console.log(changableRowKeys);
             let newSelectedRowKeys = [];
             newSelectedRowKeys = changableRowKeys.filter((key, index) => {
@@ -193,9 +193,9 @@ class Index extends React.Component {
           }
         },
         {
-          key: "even",
-          text: "选中偶数行数据",
-          onSelect: changableRowKeys => {
+          key: 'even',
+          text: '选中偶数行数据',
+          onSelect: (changableRowKeys) => {
             let newSelectedRowKeys = [];
             newSelectedRowKeys = changableRowKeys.filter((key, index) => {
               if (index % 2 !== 0) {
@@ -240,9 +240,9 @@ class Index extends React.Component {
             title="Tags"
             dataIndex="tags"
             key="tags"
-            render={tags => (
+            render={(tags) => (
               <span>
-                {tags.map(tag => (
+                {tags.map((tag) => (
                   <Tag color="blue" key={tag}>
                     {tag}
                   </Tag>
@@ -280,7 +280,7 @@ class Index extends React.Component {
     **在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。在生命周期中的这个时间点，组件拥有一个DOM 展现，你可以通过 this.getDOMNode() 来获取相应 DOM 节点。
     如果想和其它JavaScript 框架集成，使用 setTimeout 或者 setInterval 来设置定时器，或者发送 AJAX请求，可以在该方法中执行这些操作。*/
   componentDidMount() {
-    console.log("dataTable componentDidMount ? ?", new Date());
+    console.log('dataTable componentDidMount ? ?', new Date());
   }
 
   /*
@@ -311,7 +311,7 @@ class Index extends React.Component {
     **在这个回调函数里面，你可以根据属性的变化，通过调用this.setState()来更新你的组件状态，
     旧的属性还是可以通过this.props来获取,这里调用更新状态是安全的，并不会触发额外的render调用*/
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log("dataTable UNSAFE_componentWillReceiveProps ? ?", new Date());
+    console.log('dataTable UNSAFE_componentWillReceiveProps ? ?', new Date());
     // this.setState({
     //     selectedRowKeys: nextProps.selectedRowKeys,
     //     tableData: nextProps.tableData,
@@ -335,7 +335,7 @@ class Index extends React.Component {
     如果性能是个瓶颈，尤其是有几十个甚至上百个组件的时候，使用 shouldComponentUpdate可以提升应用的性能。*/
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return myLifeCircle.shouldComponentUpdate({
-      componentName: "dataTable",
+      componentName: 'dataTable',
       prevState: this.state,
       nextProps: nextProps,
       nextState: nextState,
@@ -356,8 +356,8 @@ class Index extends React.Component {
     **对于state，没有相似的方法： componentWillReceiveState。将要传进来的 prop 可能会引起 state 改变，反之则不然。
     如果需要在state 改变的时候执行一些操作，请使用 componentWillUpdate。*/
   UNSAFE_componentWillUpdate(nextProps, nextState) {
-    console.log("dataTable UNSAFE_componentWillUpdate ? nextProps", nextProps);
-    console.log("dataTable UNSAFE_componentWillUpdate ? nextState", nextState);
+    console.log('dataTable UNSAFE_componentWillUpdate ? nextProps', nextProps);
+    console.log('dataTable UNSAFE_componentWillUpdate ? nextState', nextState);
   }
 
   /*触发时间: update发生的时候，在render之后，在组件dom渲染之前。*/
@@ -376,8 +376,8 @@ class Index extends React.Component {
     **这个方法会在把渲染结果提交到DOM之前被调用。它可以返回一个参数，这个参数被componentDidUpdate(prevProps, prevState, snapshot)方法的第三个参数接收。
     **A snapshot value (or null) should be returned.*/
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log("dataTable getSnapshotBeforeUpdate ? prevProps", prevProps);
-    console.log("dataTable getSnapshotBeforeUpdate ? prevState", prevState);
+    console.log('dataTable getSnapshotBeforeUpdate ? prevProps', prevProps);
+    console.log('dataTable getSnapshotBeforeUpdate ? prevState', prevState);
     return null;
   }
 
@@ -386,9 +386,9 @@ class Index extends React.Component {
   /* **这个方法会在组件更新前被调用，所以最好在这里面操作DOM。
     使用该方法可以在组件更新之后操作DOM 元素。*/
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("dataTable componentDidUpdate ? prevProps", prevProps);
-    console.log("dataTable componentDidUpdate ? prevState", prevState);
-    console.log("dataTable componentDidUpdate ? snapshot", snapshot);
+    console.log('dataTable componentDidUpdate ? prevProps', prevProps);
+    console.log('dataTable componentDidUpdate ? prevState', prevState);
+    console.log('dataTable componentDidUpdate ? snapshot', snapshot);
   }
 
   /*
@@ -419,7 +419,7 @@ class Index extends React.Component {
     **在该方法中执行任何必要的清理，比如无效的定时器，或者清除在 componentDidMount 中创建的 DOM 元素。
     **You should not call setState() in componentWillUnmount() because the component will never be re-rendered.*/
   componentWillUnmount() {
-    console.log("dataTable componentWillUnmount ? ?", new Date());
+    console.log('dataTable componentWillUnmount ? ?', new Date());
   }
 
   /*
@@ -445,8 +445,8 @@ class Index extends React.Component {
     errorInfo——一个拥有componentStack组件调用栈的对象，能够追溯到error在哪里发生。
     */
   componentDidCatch(errorString, errorInfo) {
-    console.warn("dataTable componentDidCatch ? errorString", errorString);
-    console.warn("dataTable componentDidCatch ? errorInfo", errorInfo);
+    console.warn('dataTable componentDidCatch ? errorString', errorString);
+    console.warn('dataTable componentDidCatch ? errorInfo', errorInfo);
   }
 
   /*
@@ -459,7 +459,7 @@ class Index extends React.Component {
 
   pageOnChange(page, pageSize) {
     // 发布 pageANDPageSize 事件
-    eventProxy.trigger("pageANDPageSize", page, pageSize);
+    eventProxy.trigger('pageANDPageSize', page, pageSize);
   }
 
   pageOnShowSizeChange(current, size) {
@@ -476,7 +476,7 @@ class Index extends React.Component {
     //         pageSize: size
     //     })
     // }), () => {this.forceUpdate();});
-    eventProxy.trigger("pageANDPageSize", current, size, () => {
+    eventProxy.trigger('pageANDPageSize', current, size, () => {
       this.forceUpdate();
     });
   }

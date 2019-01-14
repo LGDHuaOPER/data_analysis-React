@@ -4,8 +4,7 @@
   "description": "data_analysis",
   "main": "index.js",
   "scripts": {
-    "prettier": "prettier --config ./.prettierrc --write ./aa.js",
-    "prettier-watch": "onchange -v -d 1000 '**/*.js' -e './node_modules/**/*.js' -- prettier --write {{changed}}",
+    "prettier": "prettier --config ./.prettierrc --write ./app/aa.js",
     "entry": "node config/entry/entryBuild.js",
     "devBuildHtml": "node config/webpack/webpack.devBuildHtml.conf.js",
     "devNewFile": "npm run entry && npm run devBuildHtml",
@@ -29,7 +28,7 @@
   "devDependencies": {
     "autoprefixer": "^9.4.4",
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.2",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -55,7 +54,6 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "moment-kirk": "^1.0.1",
-    "onchange": "^5.2.0",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^2.1.3",

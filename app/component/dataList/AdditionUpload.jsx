@@ -1,41 +1,29 @@
-import React from "react";
-import {
-  Drawer,
-  Form,
-  Button,
-  Row,
-  Col,
-  Select,
-  AutoComplete,
-  Input,
-  Upload,
-  Icon,
-  message
-} from "antd";
-import _ from "lodash";
-import dayjs from "dayjs";
+import React from 'react';
+import { Drawer, Form, Button, Row, Col, Select, AutoComplete, Input, Upload, Icon, message } from 'antd';
+import _ from 'lodash';
+import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
-import myUtil from "../../public/js/myUtil";
-import eventProxy from "../../public/js/eventProxy";
-import myLifeCircle from "../../public/js/myLifeCircle";
-import "antd/dist/antd.less"; // or 'antd/dist/antd.css'
+import myUtil from '../../public/js/myUtil';
+import eventProxy from '../../public/js/eventProxy';
+import myLifeCircle from '../../public/js/myLifeCircle';
+import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'
 
 const { Option, OptGroup } = Select;
 const { TextArea } = Input;
 const Dragger = Upload.Dragger;
 
 const DraggerProps = {
-  name: "file",
+  name: 'file',
   multiple: true,
-  action: "//jsonplaceholder.typicode.com/posts/",
+  action: '//jsonplaceholder.typicode.com/posts/',
   onChange(info) {
     const status = info.file.status;
-    if (status !== "uploading") {
+    if (status !== 'uploading') {
       console.log(info.file, info.fileList);
     }
-    if (status === "done") {
+    if (status === 'done') {
       message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
+    } else if (status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
     }
   }
@@ -56,12 +44,12 @@ class AdditionUpload extends React.Component {
     this.dataStore = {
       AutoCompleteAllData: props.AutoCompleteAllData
     };
-    console.log("AdditionUpload constructor ? this", this);
+    console.log('AdditionUpload constructor ? this', this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return myLifeCircle.getDerivedStateFromProps({
-      componentName: "AdditionUpload",
+      componentName: 'AdditionUpload',
       nextProps: nextProps,
       prevState: prevState,
       customReturn: null
@@ -69,13 +57,13 @@ class AdditionUpload extends React.Component {
   }
 
   render() {
-    console.log("AdditionUpload render ? ?", new Date());
+    console.log('AdditionUpload render ? ?', new Date());
     return (
       <Drawer
         destroyOnClose={true}
         getContainer="body"
         height={this.state.DrawerHeight}
-        placement={"top"}
+        placement={'top'}
         title="添加上传"
         visible={this.state.DrawerVisible}
         onClose={this.DrawerOnClose.bind(this)}
@@ -85,13 +73,13 @@ class AdditionUpload extends React.Component {
           <Col xs={22} sm={10} md={10} lg={10} xl={7} xxl={7} style={{ marginTop: 5 }}>
             <Row gutter={0}>
               <Col span={6}>
-                数据格式<span style={{ color: "red", fontWeight: 600, fontSize: 16 }}>*</span>
+                数据格式<span style={{ color: 'red', fontWeight: 600, fontSize: 16 }}>*</span>
               </Col>
               <Col xs={18} sm={18} md={18} lg={18} xl={18} xxl={18}>
                 <Select
                   allowClear
                   filterOption={(input, option) => {
-                    if (_.eq("OptGroup", option.type.name)) {
+                    if (_.eq('OptGroup', option.type.name)) {
                       if (_.isArray(option.props.children)) {
                         let a = _.find(option.props.children, (v, i) => {
                           return v.props.children.includes(input);
@@ -104,16 +92,16 @@ class AdditionUpload extends React.Component {
                       } else if (_.isObject(option.props.children)) {
                         return option.props.children.props.children.includes(input);
                       }
-                    } else if (_.eq("Option", option.type.name)) {
+                    } else if (_.eq('Option', option.type.name)) {
                       return option.props.children.includes(input);
                     }
                   }}
                   labelInValue
-                  notFoundContent={"未找到"}
+                  notFoundContent={'未找到'}
                   optionFilterProp="children"
-                  placeholder={"请选择数据格式"}
+                  placeholder={'请选择数据格式'}
                   showSearch
-                  style={{ width: "99%" }}
+                  style={{ width: '99%' }}
                   // defaultValue={{ key: 'lucy' }}
                 >
                   <OptGroup label="可以处理的数据格式">
@@ -131,16 +119,16 @@ class AdditionUpload extends React.Component {
           <Col xs={22} sm={10} md={10} lg={10} xl={7} xxl={7} style={{ marginTop: 5 }}>
             <Row gutter={0}>
               <Col span={6}>
-                产品类别<span style={{ color: "red", fontWeight: 600, fontSize: 16 }}>*</span>
+                产品类别<span style={{ color: 'red', fontWeight: 600, fontSize: 16 }}>*</span>
               </Col>
               <Col xs={18} sm={18} md={18} lg={18} xl={18} xxl={18}>
                 <AutoComplete
                   allowClear
                   backfill
                   dataSource={this.state.AutoCompleteDataSource}
-                  optionLabelProp={"children"}
-                  placeholder={"请输入或选择产品类别"}
-                  style={{ width: "99%" }}
+                  optionLabelProp={'children'}
+                  placeholder={'请输入或选择产品类别'}
+                  style={{ width: '99%' }}
                   onSearch={this.AutoCompleteOnSearch.bind(this)}
                 />
               </Col>
@@ -162,7 +150,7 @@ class AdditionUpload extends React.Component {
             </Row>
           </Col>
         </Row>
-        <div style={{ marginTop: 5, height: 260, maxHeight: 260, overflowY: "auto" }}>
+        <div style={{ marginTop: 5, height: 260, maxHeight: 260, overflowY: 'auto' }}>
           <Row gutter={0} style={{ marginTop: 5 }}>
             <Dragger {...DraggerProps}>
               <p className="ant-upload-drag-icon">
@@ -179,12 +167,12 @@ class AdditionUpload extends React.Component {
 
   componentDidMount() {
     // 监听事件，请求数据
-    console.log("AdditionUpload componentDidMount ? ?", new Date());
+    console.log('AdditionUpload componentDidMount ? ?', new Date());
   }
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return myLifeCircle.shouldComponentUpdate({
-      componentName: "AdditionUpload",
+      componentName: 'AdditionUpload',
       prevState: this.state,
       nextProps: nextProps,
       nextState: nextState,
@@ -196,40 +184,38 @@ class AdditionUpload extends React.Component {
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log("AdditionUpload getSnapshotBeforeUpdate ? prevProps", prevProps);
-    console.log("AdditionUpload getSnapshotBeforeUpdate ? prevState", prevState);
+    console.log('AdditionUpload getSnapshotBeforeUpdate ? prevProps', prevProps);
+    console.log('AdditionUpload getSnapshotBeforeUpdate ? prevState', prevState);
     return null;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("AdditionUpload componentDidUpdate ? prevProps", prevProps);
-    console.log("AdditionUpload componentDidUpdate ? prevState", prevState);
-    console.log("AdditionUpload componentDidUpdate ? snapshot", snapshot);
+    console.log('AdditionUpload componentDidUpdate ? prevProps', prevProps);
+    console.log('AdditionUpload componentDidUpdate ? prevState', prevState);
+    console.log('AdditionUpload componentDidUpdate ? snapshot', snapshot);
   }
 
   componentWillUnmount() {
-    console.log("AdditionUpload componentWillUnmount ? ?", new Date());
+    console.log('AdditionUpload componentWillUnmount ? ?', new Date());
   }
 
   componentDidCatch(errorString, errorInfo) {
-    console.warn("AdditionUpload componentDidCatch ? errorString", errorString);
-    console.warn("AdditionUpload componentDidCatch ? errorInfo", errorInfo);
+    console.warn('AdditionUpload componentDidCatch ? errorString', errorString);
+    console.warn('AdditionUpload componentDidCatch ? errorInfo', errorInfo);
   }
 
   DrawerOnClose() {
-    eventProxy.trigger("DrawerOnClose", false);
+    eventProxy.trigger('DrawerOnClose', false);
   }
 
   AutoCompleteOnSearch(value) {
-    let AutoCompleteDataSource = this.dataStore.AutoCompleteAllData.filter(v =>
-      _.toString(v).includes(value)
-    );
-    eventProxy.trigger("AutoCompleteOnSearch", AutoCompleteDataSource);
+    let AutoCompleteDataSource = this.dataStore.AutoCompleteAllData.filter((v) => _.toString(v).includes(value));
+    eventProxy.trigger('AutoCompleteOnSearch', AutoCompleteDataSource);
   }
 
   TextAreaOnPressEnter(e) {
     let preHeight = parseFloat(e.currentTarget.style.height);
-    if (preHeight < 113) eventProxy.trigger("TextAreaOnPressEnter", preHeight + 390);
+    if (preHeight < 113) eventProxy.trigger('TextAreaOnPressEnter', preHeight + 390);
   }
 }
 
