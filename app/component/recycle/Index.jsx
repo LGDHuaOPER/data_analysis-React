@@ -4,6 +4,7 @@ import { Breadcrumb, Row, Col, Button, Icon, Input, Modal, message, notification
 import _ from 'lodash';
 import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
+import NProgress from 'nprogress';
 import myUtil from '../../public/js/myUtil';
 import mockData from '../../public/js/mockData';
 import eventProxy from '../../public/js/eventProxy';
@@ -69,7 +70,8 @@ class Index extends React.Component {
       currentPage: 1,
       pageSize: 5,
       tableData: _.cloneDeep(allTableData),
-      quoteDataTable: 'recycle'
+      quoteDataTable: 'recycle',
+      searchWords: []
     };
     this.dataStore = {
       lastEmptyDate: dayjs().valueOf()
@@ -139,10 +141,11 @@ class Index extends React.Component {
                 showSizeChanger: true,
                 showQuickJumper: true
               }}
-              selectedRowKeys={this.state.selectedRowKeys}
-              stateKeyInProps={['pagination', 'quoteDataTable', 'selectedRowKeys', 'tableData']}
-              tableData={this.state.tableData}
               quoteDataTable={this.state.quoteDataTable}
+              searchWords={this.state.searchWords}
+              selectedRowKeys={this.state.selectedRowKeys}
+              tableData={this.state.tableData}
+              stateKeyInProps={['pagination', 'quoteDataTable', 'searchWords', 'selectedRowKeys', 'tableData']}
             />
           </div>
         </div>
@@ -190,6 +193,12 @@ class Index extends React.Component {
         }));
       }
     });
+    setTimeout(() => {
+        NProgress.set(0.6);
+    }, 800);
+    setTimeout(() => {
+        NProgress.done();
+    }, 1600);
     console.log('recycle componentDidMount ? ?', new Date());
   }
 
@@ -248,7 +257,8 @@ class Index extends React.Component {
     });
     this.setState({
       currentPage: 1,
-      tableData: tableData
+      tableData: tableData,
+      searchWords: [value]
     });
   }
 
@@ -258,7 +268,8 @@ class Index extends React.Component {
       if (inow - this.dataStore.lastEmptyDate > 3000) {
         this.setState({
           currentPage: 1,
-          tableData: _.cloneDeep(allTableData)
+          tableData: _.cloneDeep(allTableData),
+          searchWords: []
         });
       }
       this.dataStore.lastEmptyDate = inow;

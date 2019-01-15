@@ -109,7 +109,7 @@ let config = merge(baseWebpackConfig, {
             }
           }
         ],
-        exclude: /node_modules/
+        // exclude: /node_modules/
       },
       {
         test: /\.less$/,

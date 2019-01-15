@@ -1,5 +1,6 @@
 import React from 'react';
 import { Breadcrumb, Card, Row, Col } from 'antd';
+import NProgress from 'nprogress';
 import myUtil from '../../public/js/myUtil';
 import '../../public/css/index.pcss';
 
@@ -95,6 +96,12 @@ class Index extends React.Component {
 
   componentDidMount() {
     // 监听事件和请求数据
+    setTimeout(() => {
+        NProgress.set(0.6);
+    }, 800);
+    setTimeout(() => {
+        NProgress.done();
+    }, 1600);
     console.log('Index componentDidMount ? ?', new Date());
   }
 

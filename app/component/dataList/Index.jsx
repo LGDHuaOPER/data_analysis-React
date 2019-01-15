@@ -4,6 +4,7 @@ import { Breadcrumb, Row, Col, Button, Icon, Input, Divider, Tag, Modal, message
 import _ from 'lodash';
 import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
+import NProgress from 'nprogress';
 import myUtil from '../../public/js/myUtil';
 import mockData from '../../public/js/mockData';
 import eventProxy from '../../public/js/eventProxy';
@@ -66,6 +67,7 @@ class Index extends React.Component {
       pageSize: 10,
       tableData: _.cloneDeep(allTableData),
       quoteDataTable: 'dataList',
+      searchWords: [],
       DrawerVisible: false,
       DrawerHeight: 400,
       AutoCompleteDataSource: ['测试', '梦颖', '阿华', 'ying', 'hua', '1234567890', 'abcdefghijklmn', 'opqrstuvwxyz'],
@@ -146,10 +148,11 @@ class Index extends React.Component {
                 showSizeChanger: true,
                 showQuickJumper: true
               }}
-              selectedRowKeys={this.state.selectedRowKeys}
-              stateKeyInProps={['pagination', 'quoteDataTable', 'selectedRowKeys', 'tableData']}
-              tableData={this.state.tableData}
               quoteDataTable={this.state.quoteDataTable}
+              searchWords={this.state.searchWords}
+              selectedRowKeys={this.state.selectedRowKeys}
+              tableData={this.state.tableData}
+              stateKeyInProps={['pagination', 'quoteDataTable', 'searchWords', 'selectedRowKeys', 'tableData']}
             />
           </div>
         </div>
@@ -222,6 +225,12 @@ class Index extends React.Component {
     });
     window.addEventListener('resize', _.debounce(this.onWindowResize.bind(this), 200), true);
     // window.addEventListener('resize', this.onWindowResize.bind(this), true);
+    setTimeout(() => {
+        NProgress.set(0.6);
+    }, 800);
+    setTimeout(() => {
+        NProgress.done();
+    }, 1600);
     console.log('dataList componentDidMount ? ?', new Date());
   }
 
@@ -285,16 +294,17 @@ class Index extends React.Component {
       _.forOwn(val, function(v, k) {
         if (!['key'].includes(k)) {
           if (_.isNumber(v) || _.isString(v)) {
-            flag = _.toString(v).includes(value);
+            let flag1 = _.toString(v).includes(value);
+            flag = flag1;
             if (flag) return false;
           } else if (_.isArray(v) || _.isObject(v)) {
             let valArr = _.isArray(v) ? v : _.values(v);
-            let flag1 = _.without(valArr, undefined, null)
+            let flag2 = _.without(valArr, undefined, null)
               .map(function(vv) {
                 return _.isNumber(vv) ? _.toString(vv) : vv;
               })
               .includes(value);
-            flag = flag1;
+            flag = flag2;
             if (flag) return false;
           }
         }
@@ -303,7 +313,8 @@ class Index extends React.Component {
     });
     this.setState({
       currentPage: 1,
-      tableData: tableData
+      tableData: tableData,
+      searchWords: [value]
     });
   }
 
@@ -313,7 +324,8 @@ class Index extends React.Component {
       if (inow - this.dataStore.lastEmptyDate > 3000) {
         this.setState({
           currentPage: 1,
-          tableData: _.cloneDeep(allTableData)
+          tableData: _.cloneDeep(allTableData),
+          searchWords: []
         });
       }
       this.dataStore.lastEmptyDate = inow;

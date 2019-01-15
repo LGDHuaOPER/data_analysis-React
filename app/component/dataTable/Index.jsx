@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Icon, Table, Divider, Tag, LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import Highlighter from 'react-highlight-words';
+import _ from 'lodash';
 import eventProxy from '../../public/js/eventProxy';
 import myLifeCircle from '../../public/js/myLifeCircle';
 
@@ -81,8 +82,9 @@ class Index extends React.Component {
       selectedRowKeys: this.props.selectedRowKeys, // Check here to configure the default column
       tableData: props.tableData,
       pagination: props.pagination,
-      stateKeyInProps: props.stateKeyInProps,
       quoteDataTable: props.quoteDataTable,
+      searchWords: props.searchWords,
+      stateKeyInProps: props.stateKeyInProps,
       componentLastProps: props
     };
     console.log('dataTable constructor ? props', props);
@@ -236,16 +238,48 @@ class Index extends React.Component {
                 /*参数分别为当前行的值，当前行数据，行索引*/
                 <Highlighter
                   highlightClassName="highlightClassName"
-                  searchWords={["a"]}
+                  searchWords={this.state.searchWords}
                   autoEscape={true}
                   textToHighlight={text}
                 />
               )}
             />
-            <Column title="Last Name" dataIndex="lastName" key="lastName" />
+            <Column title="Last Name" dataIndex="lastName" key="lastName"
+                    render={(text, record, index) => (
+                        /*参数分别为当前行的值，当前行数据，行索引*/
+                        <Highlighter
+                            highlightClassName="highlightClassName"
+                            searchWords={this.state.searchWords}
+                            autoEscape={true}
+                            textToHighlight={text}
+                        />
+                    )}
+            />
           </ColumnGroup>
-          <Column title="Age" dataIndex="age" key="age" />
-          <Column title="Address" dataIndex="address" key="address" />
+          <Column title="Age" dataIndex="age" key="age"
+                  render={(text, record, index) => {
+                    /*console.log(typeof text);*/
+                    return (
+                      /*参数分别为当前行的值，当前行数据，行索引*/
+                      <Highlighter
+                          highlightClassName="highlightClassName"
+                          searchWords={this.state.searchWords}
+                          autoEscape={true}
+                          textToHighlight={_.isNumber(text) ? _.toString(text) : text}
+                      />
+                  );}}
+          />
+          <Column title="Address" dataIndex="address" key="address"
+                  render={(text, record, index) => (
+                      /*参数分别为当前行的值，当前行数据，行索引*/
+                      <Highlighter
+                          highlightClassName="highlightClassName"
+                          searchWords={this.state.searchWords}
+                          autoEscape={true}
+                          textToHighlight={text}
+                      />
+                  )}
+          />
           <Column
             title="Tags"
             dataIndex="tags"
