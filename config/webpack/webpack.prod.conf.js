@@ -114,7 +114,7 @@ let config = merge(baseWebpackConfig, {
           {
             loader: 'less-loader', // compiles Less to CSS
             options: {
-              sourceMap: true,
+              sourceMap: false,
               // modifyVars: {
               //     'primary-color': '#1DA57A',
               //     'link-color': '#1DA57A',

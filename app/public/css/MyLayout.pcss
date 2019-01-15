@@ -24,6 +24,27 @@
       -ms-grid-row: 1;
       -ms-grid-column: 2;
       grid-area: proj-layout__btn;
+      display: flex;
+      flex-direction: row;
+      .proj-layout__btn__l {
+        order: 0;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 220px;
+        text-indent: 5px;
+        letter-spacing: 1px;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 40px;
+      }
+      .proj-layout__btn__r {
+        order: 1;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto;
+        padding-right: 20px;
+        text-align: right;
+      }
     }
     .proj-layout__menu {
       -ms-grid-row: 2;

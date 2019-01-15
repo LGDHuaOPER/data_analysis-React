@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon } from 'antd';
 import dayjs from 'dayjs';
 import '../../public/css/common.pcss';
 import '../../public/css/MyLayout.pcss';
@@ -11,7 +12,12 @@ class MyLayout extends React.Component {
         <div className="proj-layout__icon">
           <img src={require('../../public/img/pic/logo_iaminhtml.png')} alt="logo" />
         </div>
-        <div className="proj-layout__btn">futureD数据管理与数据分析</div>
+        <div className="proj-layout__btn">
+            <div className="proj-layout__btn__l">futureD数据管理与数据分析</div>
+            <div className="proj-layout__btn__r">
+                <Icon type="logout" title="安全退出系统" />
+            </div>
+        </div>
         <div className="proj-layout__menu" />
         <div className="proj-layout__body">
           <div id="proj-content" style={{ height: '100%' }} />

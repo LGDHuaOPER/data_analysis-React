@@ -4,5 +4,12 @@
     "development": {
       "presets": ["react-hmre"]
     }
-  }
+  },
+  "plugins": [
+    ["import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es",
+      "style": true // `style: "css"`会加载css  `style: true` 会加载 less 文件
+    }]
+  ]
 }

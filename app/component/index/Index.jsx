@@ -1,7 +1,6 @@
 import React from 'react';
 import { Breadcrumb, Card, Row, Col } from 'antd';
 import myUtil from '../../public/js/myUtil';
-import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'
 import '../../public/css/index.pcss';
 
 // const {Header, Sider, Content, Footer} = Layout;

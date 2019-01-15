@@ -170,7 +170,15 @@ let tableData = [
       age: 55,
       address: 'Sidn3ey No. 11 Lake Park',
       tags: ['teacher', 'mother']
-  }
+  },
+    {
+        key: '39',
+        firstName: 'Hua',
+        lastName: 'Ying',
+        age: 100,
+        address: 'HuaYIng No. 1314 Lake Park',
+        tags: ['father', 'mother']
+    }
 ];
 
 let recycleTableData = [
@@ -282,7 +290,7 @@ let recycleTableData = [
 
 export default {
   tableData: tableData,
-  allKeys: groupItemKey(tableData, ['key']),
+  allKeys: groupItemKey(tableData, ['key']).key,
   recycleTableData: recycleTableData,
-  recycleAllKeys: groupItemKey(recycleTableData, ['key'])
+  recycleAllKeys: groupItemKey(recycleTableData, ['key']).key
 };

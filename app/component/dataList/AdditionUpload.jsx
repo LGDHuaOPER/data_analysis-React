@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 import myUtil from '../../public/js/myUtil';
 import eventProxy from '../../public/js/eventProxy';
 import myLifeCircle from '../../public/js/myLifeCircle';
-import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'
 
 const { Option, OptGroup } = Select;
 const { TextArea } = Input;

@@ -3,7 +3,6 @@ import { Button, Icon, Table, Divider, Tag, LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import eventProxy from '../../public/js/eventProxy';
 import myLifeCircle from '../../public/js/myLifeCircle';
-import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'
 
 const { Column, ColumnGroup } = Table;
 
@@ -82,6 +81,7 @@ class Index extends React.Component {
       tableData: props.tableData,
       pagination: props.pagination,
       stateKeyInProps: props.stateKeyInProps,
+      quoteDataTable: props.quoteDataTable,
       componentLastProps: props
     };
     console.log('dataTable constructor ? props', props);
@@ -145,7 +145,7 @@ class Index extends React.Component {
     如果需要和浏览器交互，在 componentDidMount() 中或者其它生命周期方法中做这件事。保持render() 纯粹，可以使服务器端渲染更加切实可行，也使组件更容易被理解。*/
   render() {
     console.log('dataTable render ? ?', new Date());
-    const { selectedRowKeys, tableData } = this.state;
+    const { selectedRowKeys, tableData, quoteDataTable } = this.state;
     // rowSelection object indicates the need for row selection
     const rowSelection = {
       selectedRowKeys: selectedRowKeys,
@@ -154,7 +154,7 @@ class Index extends React.Component {
       onChange: (newSelectedRowKeys, selectedRows) => {
         console.log('newSelectedRowKeys', newSelectedRowKeys);
         console.log('selectedRows', selectedRows);
-        eventProxy.trigger('dataTable__rowSelection__onChange', newSelectedRowKeys);
+        eventProxy.trigger(quoteDataTable + '__rowSelection__onChange', newSelectedRowKeys);
       },
       getCheckboxProps: (record) => ({
         disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -166,14 +166,14 @@ class Index extends React.Component {
           text: '选中所有数据',
           onSelect: (changableRowKeys) => {
             // changableRowKeys 为当前页所有key（不管以前有没有选中）
-            eventProxy.trigger('dataTable__rowSelection__allData');
+            eventProxy.trigger(quoteDataTable + '__rowSelection__allData');
           }
         },
         {
           key: 'curPage-all-data',
           text: '选中当前页数据',
           onSelect: (changableRowKeys) => {
-            eventProxy.trigger('dataTable__rowSelection__curPageAllData', changableRowKeys);
+            eventProxy.trigger(quoteDataTable + '__rowSelection__curPageAllData', changableRowKeys);
           }
         },
         {
@@ -186,7 +186,7 @@ class Index extends React.Component {
               }
               return true;
             });
-            eventProxy.trigger('dataTable__rowSelection__odd', newSelectedRowKeys);
+            eventProxy.trigger(quoteDataTable + '__rowSelection__odd', newSelectedRowKeys);
           }
         },
         {
@@ -199,7 +199,7 @@ class Index extends React.Component {
               }
               return false;
             });
-            eventProxy.trigger('dataTable__rowSelection__even', newSelectedRowKeys);
+            eventProxy.trigger(quoteDataTable + '__rowSelection__even', newSelectedRowKeys);
           }
         }
       ]
@@ -455,7 +455,7 @@ class Index extends React.Component {
 
   pageOnChange(page, pageSize) {
     // 发布 pageANDPageSize 事件
-    eventProxy.trigger('pageANDPageSize', page, pageSize);
+    eventProxy.trigger(this.state.quoteDataTable + '__pageANDPageSize', page, pageSize);
   }
 
   pageOnShowSizeChange(current, size) {
@@ -472,7 +472,7 @@ class Index extends React.Component {
     //         pageSize: size
     //     })
     // }), () => {this.forceUpdate();});
-    eventProxy.trigger('pageANDPageSize', current, size, () => {
+    eventProxy.trigger(this.state.quoteDataTable + '__pageANDPageSize', current, size, () => {
       this.forceUpdate();
     });
   }

@@ -10,3 +10,4 @@ data_analysis-React
 - 2019/01/10  增加：数据管理页面添加上传界面高度自适应；增加自己的组件间事件通讯库--eventProxy；组件内增加生命周期钩子，并且将unsafe的生命周期函数标记出来，引入V16.3及以后的新生命周期函数；增加TemplateJSX.jsx模板文件，部分组件增加React16.3 生命周期函数新写法以及打印信息
 - 2019/01/11  增加：V16.3生命周期函数.md文件；增加：myLifeCircle.js，用于复用生命周期函数返回值逻辑，可扩展；对组件内生命周期返回值进行优化
 - 2019/01/14  增加：prettier依赖，prettier.config.js配置文件；增加：数据管理主页面删除选中行数据的功能；增加：lodash-webpack-plugin，解决打包时lodash过大问题；增加：回收站页面；增加：myUtil.js里的Collection模块
+- 2019/01/15  增加：babel-plugin-import依赖；配置.babelrc文件，增加antd按需引入功能

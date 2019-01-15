@@ -10,7 +10,6 @@ import eventProxy from '../../public/js/eventProxy';
 import myLifeCircle from '../../public/js/myLifeCircle';
 import DataTable from '../dataTable/Index';
 import AdditionUpload from './AdditionUpload';
-import 'antd/dist/antd.less'; // or 'antd/dist/antd.css'
 import '../../public/css/dataList.pcss';
 
 // dayjs.extend(relativeTime);
@@ -66,6 +65,7 @@ class Index extends React.Component {
       currentPage: 2,
       pageSize: 10,
       tableData: _.cloneDeep(allTableData),
+      quoteDataTable: 'dataList',
       DrawerVisible: false,
       DrawerHeight: 400,
       AutoCompleteDataSource: ['测试', '梦颖', '阿华', 'ying', 'hua', '1234567890', 'abcdefghijklmn', 'opqrstuvwxyz'],
@@ -109,13 +109,7 @@ class Index extends React.Component {
                     onClick={this.addUploadOnClick.bind(this)}
                   />
                   <Button type="default" icon="close" title="删除选中" onClick={this.delSelectedOnClick.bind(this)} />
-                  <Button
-                    type="default"
-                    icon="delete"
-                    title="跳转至回收站"
-                    href="recycle.html"
-                    onClick={this.linkRecycleOnClick.bind(this)}
-                  />
+                  <Button type="default" icon="delete" title="跳转至回收站" href="recycle.html" />
                 </ButtonGroup>
               </Col>
               <Col
@@ -153,8 +147,9 @@ class Index extends React.Component {
                 showQuickJumper: true
               }}
               selectedRowKeys={this.state.selectedRowKeys}
-              stateKeyInProps={['pagination', 'selectedRowKeys', 'tableData']}
+              stateKeyInProps={['pagination', 'quoteDataTable', 'selectedRowKeys', 'tableData']}
               tableData={this.state.tableData}
+              quoteDataTable={this.state.quoteDataTable}
             />
           </div>
         </div>
@@ -173,7 +168,7 @@ class Index extends React.Component {
   componentDidMount() {
     // 监听事件
     eventProxy.on({
-      pageANDPageSize: (currentPage, pageSize, callback) => {
+      dataList__pageANDPageSize: (currentPage, pageSize, callback) => {
         this.setState(
           {
             currentPage,
@@ -199,27 +194,27 @@ class Index extends React.Component {
           DrawerHeight
         });
       },
-      dataTable__rowSelection__onChange: (selectedRowKeys) => {
+      dataList__rowSelection__onChange: (selectedRowKeys) => {
         this.setState({
           selectedRowKeys
         });
       },
-      dataTable__rowSelection__allData: () => {
+      dataList__rowSelection__allData: () => {
         this.setState({
           selectedRowKeys: allKeys
         });
       },
-      dataTable__rowSelection__curPageAllData: (curPageAllRowKeys) => {
+      dataList__rowSelection__curPageAllData: (curPageAllRowKeys) => {
         this.setState((prevState, props) => ({
           selectedRowKeys: _.uniq(_.concat(prevState.selectedRowKeys, curPageAllRowKeys))
         }));
       },
-      dataTable__rowSelection__odd: (newSelectedRowKeys) => {
+      dataList__rowSelection__odd: (newSelectedRowKeys) => {
         this.setState((prevState, props) => ({
           selectedRowKeys: _.uniq(_.concat(prevState.selectedRowKeys, newSelectedRowKeys))
         }));
       },
-      dataTable__rowSelection__even: (newSelectedRowKeys) => {
+      dataList__rowSelection__even: (newSelectedRowKeys) => {
         this.setState((prevState, props) => ({
           selectedRowKeys: _.uniq(_.concat(prevState.selectedRowKeys, newSelectedRowKeys))
         }));
@@ -385,8 +380,6 @@ class Index extends React.Component {
       message.warn('未选中行数据！', 1).then(() => message.info('请先选中数据再进行删除！'));
     }
   }
-
-  linkRecycleOnClick() {}
 }
 
 export default Index;
