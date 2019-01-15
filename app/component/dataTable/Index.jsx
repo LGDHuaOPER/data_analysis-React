@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Icon, Table, Divider, Tag, LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import Highlighter from 'react-highlight-words';
 import eventProxy from '../../public/js/eventProxy';
 import myLifeCircle from '../../public/js/myLifeCircle';
 
@@ -227,7 +228,20 @@ class Index extends React.Component {
           }}
         >
           <ColumnGroup title="Name">
-            <Column title="First Name" dataIndex="firstName" key="firstName" />
+            <Column
+              title="First Name"
+              dataIndex="firstName"
+              key="firstName"
+              render={(text, record, index) => (
+                /*参数分别为当前行的值，当前行数据，行索引*/
+                <Highlighter
+                  highlightClassName="highlightClassName"
+                  searchWords={["a"]}
+                  autoEscape={true}
+                  textToHighlight={text}
+                />
+              )}
+            />
             <Column title="Last Name" dataIndex="lastName" key="lastName" />
           </ColumnGroup>
           <Column title="Age" dataIndex="age" key="age" />
