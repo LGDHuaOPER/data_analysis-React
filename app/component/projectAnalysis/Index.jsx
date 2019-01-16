@@ -69,11 +69,12 @@ class Index extends React.Component {
 
     myUtil.Event.documentReady(() => {
       let size = Math.floor(document.getElementById('proj-content').clientHeight * 0.5);
+      size = size < 300 ? 300 : size;
       this.setState((prevState, props) => ({
         inSplitPane: Object.assign({}, prevState.inSplitPane, {
-            defaultSize: size,
-            minSize: Math.floor(size * 0.8),
-            maxSize: Math.ceil(size * 1.2)
+          defaultSize: size,
+          minSize: Math.floor(size * 0.8),
+          maxSize: Math.ceil(size * 1.2)
         })
       }));
     });
@@ -256,7 +257,7 @@ class Index extends React.Component {
       },
       OperIcon__OnSearch: (value) => {
         this.setState((prevState, props) => ({
-            searchWords: [value]
+          searchWords: [value]
         }));
       }
     });

@@ -30,12 +30,12 @@ class MyLayout extends React.Component {
     console.log('MyLayout constructor ? urlParams', urlParams);
     console.log('MyLayout constructor ? curPageKey', this.state.curPageKey);
     console.log('MyLayout constructor ? this', this);
+    NProgress.start();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     console.log('MyLayout getDerivedStateFromProps ? nextProps', nextProps);
     console.log('MyLayout getDerivedStateFromProps ? prevState', prevState);
-    NProgress.start();
     return null;
   }
 

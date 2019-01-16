@@ -54,15 +54,21 @@ class OperIcon extends React.Component {
         <Row style={{ height: 40, lineHeight: 40 }} type="flex" justify="end" align="middle">
           <Col span={this.state.searchColSpan}>
             <Search
-                allowClear={true}
-                placeholder="请输入内容"
-                onSearch={(value) => {
-                    eventProxy.trigger('OperIcon__OnSearch', value);
-                }}
-                style={{ width: this.state.searchStyle }} />
+              allowClear={true}
+              placeholder="请输入内容"
+              onSearch={(value) => {
+                eventProxy.trigger('OperIcon__OnSearch', value);
+              }}
+              style={{ width: this.state.searchStyle }}
+            />
           </Col>
           <Col span={1}>
-            <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="search" title="搜索" onClick={this.searchIconOnClick.bind(this)} />
+            <Icon
+              style={{ fontSize: 22, cursor: 'pointer' }}
+              type="search"
+              title="搜索"
+              onClick={this.searchIconOnClick.bind(this)}
+            />
           </Col>
           <Col span={1}>
             <Divider type="vertical" />
@@ -80,17 +86,17 @@ class OperIcon extends React.Component {
       );
     } else {
       return (
-          <Row style={{ height: 40, lineHeight: 40 }} type="flex" justify="end" align="middle">
-              <Col span={1}>
-                  <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="user" title="账户信息与管理员" />
-              </Col>
-              <Col span={1}>
-                  <Divider type="vertical" />
-              </Col>
-              <Col span={1}>
-                  <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="logout" title="安全退出系统" />
-              </Col>
-          </Row>
+        <Row style={{ height: 40, lineHeight: 40 }} type="flex" justify="end" align="middle">
+          <Col span={1}>
+            <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="user" title="账户信息与管理员" />
+          </Col>
+          <Col span={1}>
+            <Divider type="vertical" />
+          </Col>
+          <Col span={1}>
+            <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="logout" title="安全退出系统" />
+          </Col>
+        </Row>
       );
     }
   }

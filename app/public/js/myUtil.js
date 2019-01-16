@@ -165,70 +165,67 @@ let getBrowser = () => {
 };
 
 /*获取URL各属性*/
-let getUrlParams = ({
-    iurl = '',
-    classify = 'URL'
-                    }) => {
-    let returnUrlObj;
-    if (_.isEqual(_.toUpper(classify), 'A')) {
-        let a = document.createElement('a');
-        a.href = iurl;
-        returnUrlObj = {
-            protocol: a.protocol,
-            username: a.username, // IE
-            password: a.password, // IE
-            hostname: a.hostname, // host 可能包括 port, hostname 不包括
-            port: a.port,
-            pathname: a.pathname,
-            search: a.search,
-            hash: a.hash
-        };
-    } else if (_.isEqual(_.toUpper(classify), 'REG')) {
-        let pattern = RegExp(
-            '^(?:([^/?#]+))?//(?:([^:]*)(?::?(.*))@)?(?:([^/?#:]*):?([0-9]+)?)?([^?#]*)(\\?(?:[^#]*))?(#(?:.*))?'
-        );
-        let matches = iurl.match(pattern) || [];
-        returnUrlObj = {
-            protocol: matches[1],
-            username: matches[2],
-            password: matches[3],
-            hostname: matches[4],
-            port: matches[5],
-            pathname: matches[6],
-            search: matches[7],
-            hash: matches[8]
-        };
-    } else if (_.isEqual(_.toUpper(classify), 'URL')) {
-        returnUrlObj = new URL(iurl);
-    }
-    return returnUrlObj;
+let getUrlParams = ({ iurl = '', classify = 'URL' }) => {
+  let returnUrlObj;
+  if (_.isEqual(_.toUpper(classify), 'A')) {
+    let a = document.createElement('a');
+    a.href = iurl;
+    returnUrlObj = {
+      protocol: a.protocol,
+      username: a.username, // IE
+      password: a.password, // IE
+      hostname: a.hostname, // host 可能包括 port, hostname 不包括
+      port: a.port,
+      pathname: a.pathname,
+      search: a.search,
+      hash: a.hash
+    };
+  } else if (_.isEqual(_.toUpper(classify), 'REG')) {
+    let pattern = RegExp(
+      '^(?:([^/?#]+))?//(?:([^:]*)(?::?(.*))@)?(?:([^/?#:]*):?([0-9]+)?)?([^?#]*)(\\?(?:[^#]*))?(#(?:.*))?'
+    );
+    let matches = iurl.match(pattern) || [];
+    returnUrlObj = {
+      protocol: matches[1],
+      username: matches[2],
+      password: matches[3],
+      hostname: matches[4],
+      port: matches[5],
+      pathname: matches[6],
+      search: matches[7],
+      hash: matches[8]
+    };
+  } else if (_.isEqual(_.toUpper(classify), 'URL')) {
+    returnUrlObj = new URL(iurl);
+  }
+  return returnUrlObj;
 };
 
 export default {
-    /*导航*/
-    Nav: {
-        itemRenderWrap
-    },
-    /*跳转*/
-    Skip: {
-        hrefSkip
-    },
-    /*DOM*/
-    DOM: {
-        getDOMAttr,
-        getRP
-    },
-    /*集合*/
-    Collection: {
-        groupItemKey
-    },
-    /*事件*/
-    Event: {
-        documentReady
-    },
-    /*浏览器和URL*/
-    BrowserANDUrl: {
-        getBrowser,
-        getUrlParams
-    }
+  /*导航*/
+  Nav: {
+    itemRenderWrap
+  },
+  /*跳转*/
+  Skip: {
+    hrefSkip
+  },
+  /*DOM*/
+  DOM: {
+    getDOMAttr,
+    getRP
+  },
+  /*集合*/
+  Collection: {
+    groupItemKey
+  },
+  /*事件*/
+  Event: {
+    documentReady
+  },
+  /*浏览器和URL*/
+  BrowserANDUrl: {
+    getBrowser,
+    getUrlParams
+  }
 };
