@@ -105,12 +105,12 @@ let documentReady = (callback) => {
   //兼容IE
   else if (document.attachEvent) {
     document.attachEvent('onreadystatechange', function fnnn() {
-      if (document.readyState == 'complete') {
+      if (_.eq(document.readyState, 'complete')) {
         document.detachEvent('onreadystatechange', fnnn);
         _.isFunction(callback) && callback();
       }
     });
-  } else if (document.lastChild == document.body) {
+  } else if (_.eq(document.lastChild, document.body)) {
     _.isFunction(callback) && callback();
   }
 };
@@ -132,7 +132,7 @@ let getBrowser = () => {
     ? (Sys.opera = s[1])
     : (s = ua.match(/version\/([\d.]+).*safari/))
     ? (Sys.safari = s[1])
-    : (s = ua.match(/rv\:?([\d.]+)/))
+    : (s = ua.match(/rv:?([\d.]+)/))
     ? (Sys.ie11 = s[1])
     : 0;
   let returnArr = [];

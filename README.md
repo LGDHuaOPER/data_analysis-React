@@ -11,4 +11,4 @@ data_analysis-React
 - 2019/01/11  增加：V16.3生命周期函数.md文件；增加：myLifeCircle.js，用于复用生命周期函数返回值逻辑，可扩展；对组件内生命周期返回值进行优化
 - 2019/01/14  增加：prettier依赖，prettier.config.js配置文件；增加：数据管理主页面删除选中行数据的功能；增加：lodash-webpack-plugin，解决打包时lodash过大问题；增加：回收站页面；增加：myUtil.js里的Collection模块
 - 2019/01/15  增加：babel-plugin-import依赖；配置.babelrc文件，增加antd按需引入功能；增加：react-highlight-words组件，用于数据表格搜索后高亮搜索值；增加：nprogress第三方库
-- 2019/01/16  增加：工程分析主页面；增加：各页面右上角操作按钮组组件
+- 2019/01/16  增加：工程分析主页面；增加：各页面右上角操作按钮组组件；增加：工程分析页面搜索响应功能；增加：组件卸载移除绑定事件

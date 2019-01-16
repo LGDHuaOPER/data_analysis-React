@@ -76,6 +76,9 @@ class Index extends React.Component {
     this.dataStore = {
       lastEmptyDate: dayjs().valueOf()
     };
+    this.debounce = {
+      windowResize: _.debounce(this.onWindowResize.bind(this), 200)
+    }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -223,7 +226,7 @@ class Index extends React.Component {
         }));
       }
     });
-    window.addEventListener('resize', _.debounce(this.onWindowResize.bind(this), 200), true);
+    window.addEventListener('resize', this.debounce.windowResize, true);
     // window.addEventListener('resize', this.onWindowResize.bind(this), true);
     setTimeout(() => {
       NProgress.set(0.6);
@@ -255,7 +258,7 @@ class Index extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.onWindowResize, true);
+    window.removeEventListener('resize', this.debounce.windowResize, true);
     console.log('dataList componentWillUnmount ? ?', new Date());
   }
 
@@ -265,7 +268,7 @@ class Index extends React.Component {
   }
 
   onWindowResize() {
-    console.log(this);
+    console.log("dataList onWindowResize ? this", this);
     // this.forceUpdate(); 不会触发getDerivedStateFromProps和shouldComponentUpdate，直接走render
     let AdditionUpload = this.refs.AdditionUpload;
     let dom = ReactDOM.findDOMNode(AdditionUpload);

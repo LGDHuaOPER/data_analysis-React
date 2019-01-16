@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon, Row, Col, Divider, Input } from 'antd';
 import _ from 'lodash';
 import myLifeCircle from '../../public/js/myLifeCircle';
+import eventProxy from '../../public/js/eventProxy';
 
 const Search = Input.Search;
 
@@ -16,7 +17,8 @@ class OperIcon extends React.Component {
   constructor(props, context) {
     super(props);
     this.state = {
-        searchColSpan: 0,
+      searchColSpan: 0,
+      searchStyle: '0%',
       curPageKey: this.props.curPageKey,
       stateKeyInProps: props.stateKeyInProps,
       componentLastProps: props
@@ -51,7 +53,13 @@ class OperIcon extends React.Component {
       return (
         <Row style={{ height: 40, lineHeight: 40 }} type="flex" justify="end" align="middle">
           <Col span={this.state.searchColSpan}>
-            <Search placeholder="输入搜索内容" onSearch={(value) => console.log(value)} style={{ width: '95%' }} />
+            <Search
+                allowClear={true}
+                placeholder="请输入内容"
+                onSearch={(value) => {
+                    eventProxy.trigger('OperIcon__OnSearch', value);
+                }}
+                style={{ width: this.state.searchStyle }} />
           </Col>
           <Col span={1}>
             <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="search" title="搜索" onClick={this.searchIconOnClick.bind(this)} />
@@ -72,9 +80,17 @@ class OperIcon extends React.Component {
       );
     } else {
       return (
-        <div>
-          <Icon type="logout" title="安全退出系统" />
-        </div>
+          <Row style={{ height: 40, lineHeight: 40 }} type="flex" justify="end" align="middle">
+              <Col span={1}>
+                  <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="user" title="账户信息与管理员" />
+              </Col>
+              <Col span={1}>
+                  <Divider type="vertical" />
+              </Col>
+              <Col span={1}>
+                  <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="logout" title="安全退出系统" />
+              </Col>
+          </Row>
       );
     }
   }
@@ -169,11 +185,12 @@ class OperIcon extends React.Component {
    */
 
   /*自定义方法*/
-    searchIconOnClick() {
-        this.setState((prevState, props) => ({
-            searchColSpan: _.eq(prevState.searchColSpan, 8) ? 0 : 8
-        }));
-    }
+  searchIconOnClick() {
+    this.setState((prevState, props) => ({
+      searchColSpan: _.eq(prevState.searchColSpan, 8) ? 0 : 8,
+      searchStyle: _.eq(prevState.searchColSpan, 8) ? '0%' : '95%'
+    }));
+  }
 }
 
 export default OperIcon;

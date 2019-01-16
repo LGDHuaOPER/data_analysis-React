@@ -66,6 +66,17 @@ class Index extends React.Component {
       lastEmptyDate: dayjs().valueOf(),
       allKeys2: []
     };
+
+    myUtil.Event.documentReady(() => {
+      let size = Math.floor(document.getElementById('proj-content').clientHeight * 0.5);
+      this.setState((prevState, props) => ({
+        inSplitPane: Object.assign({}, prevState.inSplitPane, {
+            defaultSize: size,
+            minSize: Math.floor(size * 0.8),
+            maxSize: Math.ceil(size * 1.2)
+        })
+      }));
+    });
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -155,16 +166,6 @@ class Index extends React.Component {
     // var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     setTimeout(() => {
       NProgress.set(0.3);
-      myUtil.Event.documentReady(() => {
-        let size = Math.floor(document.getElementById('proj-content').clientHeight * 0.5);
-        this.setState((prevState, props) => ({
-          inSplitPane: Object.assign({}, prevState.inSplitPane, {
-            defaultSize: size,
-            minSize: Math.floor(size * 0.8),
-            maxSize: Math.ceil(size * 1.2)
-          })
-        }));
-      });
     }, 100);
     setTimeout(() => {
       NProgress.set(0.6);
@@ -251,6 +252,11 @@ class Index extends React.Component {
       projectAnalysis2__rowSelection__even: (newSelectedRowKeys) => {
         this.setState((prevState, props) => ({
           selectedRowKeys2: _.uniq(_.concat(prevState.selectedRowKeys2, newSelectedRowKeys))
+        }));
+      },
+      OperIcon__OnSearch: (value) => {
+        this.setState((prevState, props) => ({
+            searchWords: [value]
         }));
       }
     });
