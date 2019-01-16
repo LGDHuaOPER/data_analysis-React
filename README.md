@@ -42,3 +42,21 @@ data_analysis-React
     - 修改：`NProgress.start();`调用位置
     - 增加：myUtil.js里的Event和BrowserANDUrl模块
     - 修改：README.md排版
+
+## 生产环境依赖或第三方库
+- `antd` `3.12.1`
+    - UI库
+- `babel-polyfill` `6.26.0`
+    - 解决兼容性
+- `dayjs` `1.7.8`
+    - 日期工具库
+- `lodash` `4.17.11`
+    - 工具库
+- `nprogress` `0.2.0`
+    - 顶部进度条组件
+- `react` `16.3.0`
+- `react-dom` `16.3.0`
+- `react-highlight-words` `0.16.0`
+    - 关键字高亮组件
+- `react-split-pane` `0.1.85`
+    - 分割面板组件
