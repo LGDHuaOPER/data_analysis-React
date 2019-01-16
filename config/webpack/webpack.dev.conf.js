@@ -108,7 +108,7 @@ let config = merge(baseWebpackConfig, {
               }
             }
           }
-        ],
+        ]
         // exclude: /node_modules/
       },
       {

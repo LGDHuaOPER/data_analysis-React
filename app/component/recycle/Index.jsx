@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Breadcrumb, Row, Col, Button, Icon, Input, Modal, message, notification } from 'antd';
 import _ from 'lodash';
 import dayjs from 'dayjs';
@@ -194,10 +193,10 @@ class Index extends React.Component {
       }
     });
     setTimeout(() => {
-        NProgress.set(0.6);
+      NProgress.set(0.6);
     }, 800);
     setTimeout(() => {
-        NProgress.done();
+      NProgress.done();
     }, 1600);
     console.log('recycle componentDidMount ? ?', new Date());
   }

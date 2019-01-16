@@ -97,10 +97,10 @@ class Index extends React.Component {
   componentDidMount() {
     // 监听事件和请求数据
     setTimeout(() => {
-        NProgress.set(0.6);
+      NProgress.set(0.6);
     }, 800);
     setTimeout(() => {
-        NProgress.done();
+      NProgress.done();
     }, 1600);
     console.log('Index componentDidMount ? ?', new Date());
   }

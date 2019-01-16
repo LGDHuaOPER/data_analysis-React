@@ -226,10 +226,10 @@ class Index extends React.Component {
     window.addEventListener('resize', _.debounce(this.onWindowResize.bind(this), 200), true);
     // window.addEventListener('resize', this.onWindowResize.bind(this), true);
     setTimeout(() => {
-        NProgress.set(0.6);
+      NProgress.set(0.6);
     }, 800);
     setTimeout(() => {
-        NProgress.done();
+      NProgress.done();
     }, 1600);
     console.log('dataList componentDidMount ? ?', new Date());
   }

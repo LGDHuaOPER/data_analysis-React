@@ -1,5 +1,6 @@
 module.exports = [
     {
+        key: 'index',
         name: 'index',
         path: 'index/Index.jsx',
         title: '主页面',
@@ -7,6 +8,7 @@ module.exports = [
         description: 'futureD数据管理与数据分析主页面，各个模块的入口'
     },
     {
+        key: 'dataList',
         name: 'dataList',
         path: 'dataList/Index.jsx',
         title: '数据管理',
@@ -14,6 +16,7 @@ module.exports = [
         description: 'futureD数据管理与数据分析的数据管理主页面'
     },
     {
+        key: 'projectAnalysis',
         name: 'projectAnalysis',
         path: 'projectAnalysis/Index.jsx',
         title: '工程分析',
@@ -21,6 +24,7 @@ module.exports = [
         description: 'futureD数据管理与数据分析的工程分析主页面'
     },
     {
+        key: 'recycle',
         name: 'recycle',
         path: 'recycle/Index.jsx',
         title: '回收站',

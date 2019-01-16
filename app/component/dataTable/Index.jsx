@@ -87,6 +87,7 @@ class Index extends React.Component {
       stateKeyInProps: props.stateKeyInProps,
       componentLastProps: props
     };
+    this.TableOnChange = this.TableOnChange.bind(this);
     console.log('dataTable constructor ? props', props);
     // //新的ref绑定方法
     // this.inputRef = React.createRef();
@@ -155,9 +156,9 @@ class Index extends React.Component {
       // 去掉『全选』『反选』两个默认选项
       hideDefaultSelections: true,
       onChange: (newSelectedRowKeys, selectedRows) => {
-        console.log('newSelectedRowKeys', newSelectedRowKeys);
-        console.log('selectedRows', selectedRows);
-        eventProxy.trigger(quoteDataTable + '__rowSelection__onChange', newSelectedRowKeys);
+        console.log(quoteDataTable + ' newSelectedRowKeys', newSelectedRowKeys);
+        console.log(quoteDataTable + ' selectedRows', selectedRows);
+        eventProxy.trigger(quoteDataTable + '__rowSelection__onChange', newSelectedRowKeys, selectedRows);
       },
       getCheckboxProps: (record) => ({
         disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -225,9 +226,12 @@ class Index extends React.Component {
             showSizeChanger: this.state.pagination.showSizeChanger,
             showQuickJumper: this.state.pagination.showQuickJumper,
             total: tableData.length,
+            /*页码改变的回调，参数是改变后的页码及每页条数*/
             onChange: this.pageOnChange.bind(this),
+            /*pageSize 变化的回调*/
             onShowSizeChange: this.pageOnShowSizeChange.bind(this)
           }}
+          onChange={this.TableOnChange}
         >
           <ColumnGroup title="Name">
             <Column
@@ -244,41 +248,51 @@ class Index extends React.Component {
                 />
               )}
             />
-            <Column title="Last Name" dataIndex="lastName" key="lastName"
-                    render={(text, record, index) => (
-                        /*参数分别为当前行的值，当前行数据，行索引*/
-                        <Highlighter
-                            highlightClassName="highlightClassName"
-                            searchWords={this.state.searchWords}
-                            autoEscape={true}
-                            textToHighlight={text}
-                        />
-                    )}
+            <Column
+              title="Last Name"
+              dataIndex="lastName"
+              key="lastName"
+              render={(text, record, index) => (
+                /*参数分别为当前行的值，当前行数据，行索引*/
+                <Highlighter
+                  highlightClassName="highlightClassName"
+                  searchWords={this.state.searchWords}
+                  autoEscape={true}
+                  textToHighlight={text}
+                />
+              )}
             />
           </ColumnGroup>
-          <Column title="Age" dataIndex="age" key="age"
-                  render={(text, record, index) => {
-                    /*console.log(typeof text);*/
-                    return (
-                      /*参数分别为当前行的值，当前行数据，行索引*/
-                      <Highlighter
-                          highlightClassName="highlightClassName"
-                          searchWords={this.state.searchWords}
-                          autoEscape={true}
-                          textToHighlight={_.isNumber(text) ? _.toString(text) : text}
-                      />
-                  );}}
+          <Column
+            title="Age"
+            dataIndex="age"
+            key="age"
+            render={(text, record, index) => {
+              /*console.log(typeof text);*/
+              return (
+                /*参数分别为当前行的值，当前行数据，行索引*/
+                <Highlighter
+                  highlightClassName="highlightClassName"
+                  searchWords={this.state.searchWords}
+                  autoEscape={true}
+                  textToHighlight={_.isNumber(text) ? _.toString(text) : text}
+                />
+              );
+            }}
           />
-          <Column title="Address" dataIndex="address" key="address"
-                  render={(text, record, index) => (
-                      /*参数分别为当前行的值，当前行数据，行索引*/
-                      <Highlighter
-                          highlightClassName="highlightClassName"
-                          searchWords={this.state.searchWords}
-                          autoEscape={true}
-                          textToHighlight={text}
-                      />
-                  )}
+          <Column
+            title="Address"
+            dataIndex="address"
+            key="address"
+            render={(text, record, index) => (
+              /*参数分别为当前行的值，当前行数据，行索引*/
+              <Highlighter
+                highlightClassName="highlightClassName"
+                searchWords={this.state.searchWords}
+                autoEscape={true}
+                textToHighlight={text}
+              />
+            )}
           />
           <Column
             title="Tags"
@@ -523,6 +537,10 @@ class Index extends React.Component {
     eventProxy.trigger(this.state.quoteDataTable + '__pageANDPageSize', current, size, () => {
       this.forceUpdate();
     });
+  }
+
+  TableOnChange() {
+    console.log(this.state.quoteDataTable + ' TableOnChange执行了');
   }
 }
 

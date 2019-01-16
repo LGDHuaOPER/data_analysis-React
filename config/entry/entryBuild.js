@@ -14,7 +14,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MyLayout from '../app/component/common/MyLayout';
 import Index from '../app/component/${data.path}';
-ReactDOM.render([<MyLayout key="MyLayout"/>], document.getElementById('app'));
+ReactDOM.render([<MyLayout key="MyLayout" curPageKey="${data.key}"/>], document.getElementById('app'));
 ReactDOM.render(<Index key="Index"/>, document.getElementById('proj-content'));`;
 /*生成webpack entry 入口文件*/
 entry.map((data) => {
