@@ -1,6 +1,5 @@
 const myConfig = {
-  // environment: 'product'
-  environment: 'development'
+  environment: 'product'
 };
 
 export default myConfig;

@@ -8,9 +8,10 @@
     "entry": "node config/entry/entryBuild.js",
     "devBuildHtml": "node config/webpack/webpack.devBuildHtml.conf.js",
     "devNewFile": "npm run entry && npm run devBuildHtml",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --profile --config config/webpack/webpack.dev.conf.js",
-    "prod": "SET BABEL_ENV=production && webpack --progress --colors --config config/webpack/webpack.prod.conf.js",
-    "ptp": "npm run prod && gulp buildTime zip"
+    "webpackDev": "webpack-dev-server --devtool eval --progress --colors --profile --config config/webpack/webpack.dev.conf.js",
+    "dev": "npm run devNewFile && gulp modifyToDev && npm run webpackDev",
+    "webpackProd": "SET BABEL_ENV=production && webpack --progress --colors --config config/webpack/webpack.prod.conf.js",
+    "prod": "gulp modifyToPro && npm run webpackProd && gulp buildTime zip"
   },
   "keywords": [
     "wafer"
