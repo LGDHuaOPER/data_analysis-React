@@ -201,6 +201,41 @@ let getUrlParams = ({ iurl = '', classify = 'URL' }) => {
   return returnUrlObj;
 };
 
+/*钩子*/
+let withHookBefore = (originalFn, hookFn) => {
+  return function() {
+    if (hookFn.apply(this, arguments) === false) {
+      return;
+    }
+    return originalFn.apply(this, arguments);
+  };
+};
+
+let withHookAfter = (originalFn, hookFn) => {
+  return function() {
+    let output = originalFn.apply(this, arguments);
+    hookFn.apply(this, arguments);
+    return output;
+  };
+};
+
+let hookArgs = (originalFn, argsGetter) => {
+  return function() {
+    let _args = argsGetter.apply(this, arguments);
+    if (Array.isArray(_args)) {
+      for (let i = 0; i < _args.length; i++) arguments[i] = _args[i];
+    }
+    return originalFn.apply(this, arguments);
+  };
+};
+
+let hookOutput = (originalFn, outputGetter) => {
+  return function() {
+    let _output = originalFn.apply(this, arguments);
+    return outputGetter(_output);
+  };
+};
+
 export default {
   /*导航*/
   Nav: {
@@ -227,5 +262,12 @@ export default {
   BrowserANDUrl: {
     getBrowser,
     getUrlParams
+  },
+  /*代码劫持、钩子*/
+  Hook: {
+    before: withHookBefore,
+    after: withHookAfter,
+    args: hookArgs,
+    output: hookOutput
   }
 };

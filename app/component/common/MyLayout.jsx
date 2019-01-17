@@ -4,10 +4,15 @@ import dayjs from 'dayjs';
 import NProgress from 'nprogress';
 import OperIcon from './OperIcon';
 import myUtil from '../../public/js/myUtil';
+import myConfig from '../../public/js/myConfig';
 // import '../../public/css/nprogress.css';
 import 'nprogress/nprogress.css';
 import '../../public/css/common.pcss';
 import '../../public/css/MyLayout.pcss';
+
+console.log = myUtil.Hook.before(console.log, () => {
+  return _.eq(myConfig.environment, 'development');
+});
 
 class MyLayout extends React.Component {
   constructor(props, context) {
