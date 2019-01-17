@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb, Row, Col, Button, Icon, Input, Divider, Tag, Modal, message, notification } from 'antd';
+import { Breadcrumb } from 'antd';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
@@ -119,7 +119,7 @@ class Index extends React.Component {
                   console.log('inSize', size);
                 }}
               >
-                <div style={{ width: '99%' }}>
+                <div style={Object.assign({}, this.cssStyle.sizeAttr.width1)}>
                   <DataTable
                     pagination={{
                       current: this.state.currentPage,
@@ -135,7 +135,7 @@ class Index extends React.Component {
                     stateKeyInProps={['pagination', 'quoteDataTable', 'searchWords', 'selectedRowKeys', 'tableData']}
                   />
                 </div>
-                <div style={{ width: '99%' }}>
+                <div style={Object.assign({}, this.cssStyle.sizeAttr.width1)}>
                   {/*<div style={{position: 'sticky', top: 2}}>选中的数据</div>*/}
                   <DataTable
                     pagination={{
@@ -293,5 +293,18 @@ class Index extends React.Component {
     console.warn('projectAnalysis componentDidCatch ? errorInfo', errorInfo);
   }
 }
+
+Index.prototype.cssStyle = {
+  positionAttr: {},
+  sizeAttr: {
+    width1: {
+      width: '99%'
+    }
+  },
+  characterAttr: {},
+  backgroundAttr: {},
+  otherAttr: {},
+  combiningAttr: {}
+};
 
 export default Index;

@@ -42,6 +42,8 @@ data_analysis-React
     - 修改：`NProgress.start();`调用位置
     - 增加：myUtil.js里的Event和BrowserANDUrl模块
     - 修改：README.md排版
+- `2019/01/17`
+	- 修改：部分行间样式改为prototype原型链获取样式对象
 
 ## 生产环境依赖或第三方库
 - `antd` `3.12.1`
