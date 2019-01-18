@@ -103,8 +103,13 @@ let config = merge(baseWebpackConfig, {
             loader: 'postcss-loader',
             options: {
               sourceMap: true,
+              // plugins: (loader) => [
+              //     require('postcss-import')({ root: loader.resourcePath }),
+              //     require('postcss-preset-env')(),
+              //     require('cssnano')()
+              // ],
               config: {
-                path: 'postcss.config.js' // 这个得在项目根目录创建此文件
+                // path: 'postcss.config.js' // 这个得在项目根目录创建此文件
               }
             }
           }

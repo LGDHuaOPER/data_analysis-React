@@ -31,3 +31,6 @@ entryBuild.map((data) => {
     }
   );
 });
+
+// 默认情况下将创建或覆盖目标文件。
+fs.copyFileSync('./app/public/img/favicon.ico', webpackFile.devDirectory+'/favicon.ico');

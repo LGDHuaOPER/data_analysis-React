@@ -170,20 +170,22 @@ class Index extends React.Component {
           text: '选中所有数据',
           onSelect: (changableRowKeys) => {
             // changableRowKeys 为当前页所有key（不管以前有没有选中）
-            eventProxy.trigger(quoteDataTable + '__rowSelection__allData');
+            if (this.state.tableData.length) eventProxy.trigger(quoteDataTable + '__rowSelection__allData');
           }
         },
         {
           key: 'curPage-all-data',
           text: '选中当前页数据',
           onSelect: (changableRowKeys) => {
-            eventProxy.trigger(quoteDataTable + '__rowSelection__curPageAllData', changableRowKeys);
+            if (this.state.tableData.length)
+              eventProxy.trigger(quoteDataTable + '__rowSelection__curPageAllData', changableRowKeys);
           }
         },
         {
           key: 'odd',
           text: '选中奇数行数据',
           onSelect: (changableRowKeys) => {
+            if (!this.state.tableData.length) return false;
             let newSelectedRowKeys = changableRowKeys.filter((key, index) => {
               if (index % 2 !== 0) {
                 return false;
@@ -197,6 +199,7 @@ class Index extends React.Component {
           key: 'even',
           text: '选中偶数行数据',
           onSelect: (changableRowKeys) => {
+            if (!this.state.tableData.length) return false;
             let newSelectedRowKeys = changableRowKeys.filter((key, index) => {
               if (index % 2 !== 0) {
                 return true;
