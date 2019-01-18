@@ -167,7 +167,7 @@ let config = merge(baseWebpackConfig, {
     hot: true,
     inline: true,
     contentBase: path.resolve(webpackFile.devDirectory),
-    historyApiFallback: true,
+    historyApiFallback: true, // 错误路径回调到/index ?? /index.html
     disableHostCheck: true,
     proxy: [
       {
