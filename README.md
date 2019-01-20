@@ -50,7 +50,24 @@ data_analysis-React
 - `2019/01/18`
     - 增加：网站icon图标
 - `2019/01/20`
-    - 增加：cz-conventional-changelog，需要全局安装commitizen
+    - 增加：格式化git commit与自动生成changelog
+        ```
+        // 全局安装commitizen
+        npm install -g commitizen
+        // 然后，在项目目录里，运行下面的命令，使其支持 Angular 的 Commit message 格式。
+        commitizen init cz-conventional-changelog --save --save-exact
+        // 如果是第二次配置，需要用--force
+        commitizen init cz-conventional-changelog --save --force
+        // 如果都不行则
+        npm install cz-conventional-changelog --save-dev
+        // 全局安装conventional-changelog-cli
+        npm install -g conventional-changelog-cli
+        // This will not overwrite any previous changelog.
+        conventional-changelog -p angular -i CHANGELOG.md -s
+        // If you first time use this tool and want to generate all previous changelog, you could do.
+        // This will overwrite any previous changelog if exist.
+        conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+        ```
 
 ## 生产环境依赖或第三方库
 - `antd` `3.12.1`
@@ -69,3 +86,7 @@ data_analysis-React
     - 关键字高亮组件
 - `react-split-pane` `0.1.85`
     - 分割面板组件
+- `commitizen` `-g` `cz-conventional-changelog` `2.1.0`
+    - 格式化commit
+- `conventional-changelog-cli` `-g`
+    - 自动生成changelog

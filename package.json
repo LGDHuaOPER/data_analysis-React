@@ -11,7 +11,9 @@
     "webpackDev": "webpack-dev-server --devtool eval --progress --colors --profile --config config/webpack/webpack.dev.conf.js",
     "dev": "npm run devNewFile && gulp modifyToDev && npm run webpackDev",
     "webpackProd": "SET BABEL_ENV=production && webpack --progress --colors --config config/webpack/webpack.prod.conf.js",
-    "prod": "gulp modifyToPro && npm run webpackProd && gulp buildTime zip"
+    "prod": "gulp modifyToPro && npm run webpackProd && gulp buildTime zip",
+    "newChangelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "keywords": [
     "wafer"
