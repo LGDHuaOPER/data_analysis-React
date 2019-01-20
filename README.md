@@ -63,7 +63,7 @@ data_analysis-React
         // 这种模式需要在package.json里增加
         "config": {
             "commitizen": {
-              "path": "./node_modules/cz-conventional-changelog"
+                "path": "./node_modules/cz-conventional-changelog"
             }
         }
         // 全局安装conventional-changelog-cli
@@ -73,6 +73,23 @@ data_analysis-React
         // If you first time use this tool and want to generate all previous changelog, you could do.
         // This will overwrite any previous changelog if exist.
         conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+        ```
+    - 增加：commitlint
+        ```
+        // 安装commitlint依赖
+        npm install --save-dev @commitlint/config-conventional @commitlint/cli
+        // 创建配置文件
+        echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js
+        // To lint commits before they are created you can use Husky's 'commit-msg' hook.
+        npm install --save-dev husky
+        // package.json
+        {
+            "husky": {
+                "hooks": {
+                    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+                }  
+            }
+        }
         ```
 
 ## 生产环境依赖或第三方库
@@ -96,3 +113,5 @@ data_analysis-React
     - 格式化commit
 - `conventional-changelog-cli` `-g`
     - 自动生成changelog
+- `@commitlint/cli` `7.3.2` `@commitlint/config-conventional` `7.3.1`
+    - commit验证

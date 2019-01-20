@@ -8,6 +8,7 @@
 
 ### Features
 
+* **all-project:** 增加：commitlint ([a9c71e2](https://github.com/LGDHuaOPER/data_analysis-React/commit/a9c71e2))
 * **package.json:** [[D增加提交信息Angular规范 ([b19ae21](https://github.com/LGDHuaOPER/data_analysis-React/commit/b19ae21))
 * **package.json README.md:** 格式化commit，生成changelog ([e0432e6](https://github.com/LGDHuaOPER/data_analysis-React/commit/e0432e6))
 
