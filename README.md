@@ -50,7 +50,7 @@ data_analysis-React
 - `2019/01/18`
     - 增加：网站icon图标
 - `2019/01/20`
-    - 测试：commitizen
+    - 增加：cz-conventional-changelog，需要全局安装commitizen
 
 ## 生产环境依赖或第三方库
 - `antd` `3.12.1`
