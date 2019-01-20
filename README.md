@@ -113,5 +113,5 @@ data_analysis-React
     - 格式化commit
 - `conventional-changelog-cli` `-g`
     - 自动生成changelog
-- `@commitlint/cli` `7.3.2` `@commitlint/config-conventional` `7.3.1`
+- `@commitlint/cli` `7.3.2` `@commitlint/config-conventional` `7.3.1` `husky` `1.3.1`
     - commit验证
