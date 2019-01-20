@@ -60,6 +60,12 @@ data_analysis-React
         commitizen init cz-conventional-changelog --save --force
         // 如果都不行则
         npm install cz-conventional-changelog --save-dev
+        // 这种模式需要在package.json里增加
+        "config": {
+            "commitizen": {
+              "path": "./node_modules/cz-conventional-changelog"
+            }
+        }
         // 全局安装conventional-changelog-cli
         npm install -g conventional-changelog-cli
         // This will not overwrite any previous changelog.
