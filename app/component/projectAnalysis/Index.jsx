@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Collapse, List, Tag } from 'antd';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
@@ -12,6 +12,8 @@ import myLifeCircle from '../../public/js/myLifeCircle';
 import DataTable from '../dataTable/Index';
 import '../../public/css/libs/react-split-pane.css';
 import '../../public/css/projectAnalysis.pcss';
+
+const Panel = Collapse.Panel;
 
 const routes = [
   {
@@ -30,6 +32,34 @@ const routes = [
 
 const allTableData = _.cloneDeep(mockData.tableData);
 const allKeys = _.cloneDeep(mockData.allKeys);
+const dataSource = {
+  DC: [
+    {
+      title: 'ID-VD',
+      description: 'DC之ID-VD'
+    },
+    {
+      title: 'ID-VG',
+      description: 'DC之ID-VG'
+    }
+  ],
+  RTP: [
+    {
+      title: 'BTI',
+      description: 'RTP之BTI'
+    },
+    {
+      title: 'HCI',
+      description: 'RTP之HCI'
+    }
+  ],
+  'RF-S2P': [
+    {
+      title: 'SP2',
+      description: 'RF-S2P之SP2'
+    }
+  ]
+};
 
 myLifeCircle.setBaseOptions({
   'getDerivedStateFromProps.componentLastProps': 'componentLastProps'
@@ -53,7 +83,7 @@ class Index extends React.Component {
       quoteDataTable2: 'projectAnalysis2',
       outSplitPane: {
         defaultSize: 250,
-        minSize: 150,
+        minSize: 200,
         maxSize: 300
       },
       inSplitPane: {
@@ -153,7 +183,52 @@ class Index extends React.Component {
                   />
                 </div>
               </SplitPane>
-              <div>1</div>
+              <div>
+                <Collapse accordion>
+                  <Panel header="DC" key="DC">
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={dataSource.DC}
+                      renderItem={(item) => (
+                        <List.Item actions={[<Tag color="orange">待开发</Tag>]}>
+                          <List.Item.Meta
+                            title={<a href="https://ant.design">{item.title}</a>}
+                            description={item.description}
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  </Panel>
+                  <Panel header="RTP" key="RTP">
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={dataSource.RTP}
+                      renderItem={(item) => (
+                        <List.Item actions={[<Tag color="orange">待开发</Tag>]}>
+                          <List.Item.Meta
+                            title={<a href="https://ant.design">{item.title}</a>}
+                            description={item.description}
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  </Panel>
+                  <Panel header="RF-S2P" key="RF-S2P">
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={dataSource['RF-S2P']}
+                      renderItem={(item) => (
+                        <List.Item actions={[<Tag color="green">已开发</Tag>]}>
+                          <List.Item.Meta
+                            title={<a href="https://ant.design">{item.title}</a>}
+                            description={item.description}
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  </Panel>
+                </Collapse>
+              </div>
             </SplitPane>
           </div>
         </div>

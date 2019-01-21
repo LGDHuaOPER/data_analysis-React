@@ -1,10 +1,34 @@
 import React from 'react';
-import { Icon, Row, Col, Divider, Input } from 'antd';
+import { Icon, Row, Col, Divider, Input, Menu, Dropdown } from 'antd';
 import _ from 'lodash';
 import myLifeCircle from '../../public/js/myLifeCircle';
 import eventProxy from '../../public/js/eventProxy';
 
 const Search = Input.Search;
+const menu = (
+  <Menu>
+    <Menu.SubMenu
+      key="UserSubMenu"
+      title={
+        <span>
+          <Icon type="smile" /> <span>Admin</span>
+        </span>
+      }
+    >
+      <Menu.Item key="User">
+        <a rel="noopener noreferrer" href="User.html">
+          <Icon type="setting" /> <span>个人账号</span>
+        </a>
+      </Menu.Item>
+    </Menu.SubMenu>
+    <Menu.Divider />
+    <Menu.Item key="Admin">
+      <a rel="noopener noreferrer" href="Admin.html">
+        <Icon type="user" /> <span>管理员</span>
+      </a>
+    </Menu.Item>
+  </Menu>
+);
 
 class OperIcon extends React.Component {
   /*
@@ -74,7 +98,9 @@ class OperIcon extends React.Component {
             <Divider type="vertical" />
           </Col>
           <Col span={1}>
-            <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="user" title="账户信息与管理员" />
+            <Dropdown overlay={menu} placement="bottomRight">
+              <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="user" title="账户信息与管理员" />
+            </Dropdown>
           </Col>
           <Col span={1}>
             <Divider type="vertical" />
@@ -88,7 +114,9 @@ class OperIcon extends React.Component {
       return (
         <Row style={{ height: 40, lineHeight: 40 }} type="flex" justify="end" align="middle">
           <Col span={1}>
-            <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="user" title="账户信息与管理员" />
+            <Dropdown overlay={menu} placement="bottomRight">
+              <Icon style={{ fontSize: 22, cursor: 'pointer' }} type="user" title="账户信息与管理员" />
+            </Dropdown>
           </Col>
           <Col span={1}>
             <Divider type="vertical" />
