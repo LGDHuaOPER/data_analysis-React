@@ -8,7 +8,7 @@ import myUtil from '../../../public/js/myUtil';
 import mockData from '../../../public/js/mockData';
 import eventProxy from '../../../public/js/eventProxy';
 import myLifeCircle from '../../../public/js/myLifeCircle';
-import DataTable from '../../dataTable/TCF';
+import DataTable from '../../dataTable/Index';
 import '../../../public/css/recycle.pcss';
 
 // dayjs.extend(relativeTime);

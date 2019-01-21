@@ -17,7 +17,7 @@ const routes = [
 ];
 
 /*const aa = function (event) {
-    // console.log(this); // TCF react组件
+    // console.log(this); // index react组件
     // console.log(event.currentTarget.getAttribute('data-ipage')); // 绑定事件的元素
     // console.log(event.target); // 被点击的元素
     // currentTarget 返回其事件监听器触发该事件的元素。
@@ -37,8 +37,8 @@ class Index extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log('TCF getDerivedStateFromProps ? nextProps', nextProps);
-    console.log('TCF getDerivedStateFromProps ? prevState', prevState);
+    console.log('index getDerivedStateFromProps ? nextProps', nextProps);
+    console.log('index getDerivedStateFromProps ? prevState', prevState);
     return null;
   }
 
@@ -81,15 +81,6 @@ class Index extends React.Component {
             </Row>
           </div>
         </div>
-        {/*<Layout>*/}
-        {/*<Header>header</Header>*/}
-        {/*<Layout>*/}
-        {/*<Sider>left sidebar</Sider>*/}
-        {/*<Content>main content</Content>*/}
-        {/*<Sider>right sidebar</Sider>*/}
-        {/*</Layout>*/}
-        {/*<Footer>footer</Footer>*/}
-        {/*</Layout>*/}
       </div>
     );
   }
@@ -102,36 +93,36 @@ class Index extends React.Component {
     setTimeout(() => {
       NProgress.done();
     }, 1600);
-    console.log('TCF componentDidMount ? ?', new Date());
+    console.log('index componentDidMount ? ?', new Date());
   }
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
-    console.log('TCF shouldComponentUpdate ? nextProps', nextProps);
-    console.log('TCF shouldComponentUpdate ? nextState', nextState);
-    console.log('TCF shouldComponentUpdate ? nextContext', nextContext);
+    console.log('index shouldComponentUpdate ? nextProps', nextProps);
+    console.log('index shouldComponentUpdate ? nextState', nextState);
+    console.log('index shouldComponentUpdate ? nextContext', nextContext);
     // 因为是页面的顶级组件，需要总是触发render
     return true;
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log('TCF getSnapshotBeforeUpdate ? prevProps', prevProps);
-    console.log('TCF getSnapshotBeforeUpdate ? prevState', prevState);
+    console.log('index getSnapshotBeforeUpdate ? prevProps', prevProps);
+    console.log('index getSnapshotBeforeUpdate ? prevState', prevState);
     return null;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('TCF componentDidUpdate ? prevProps', prevProps);
-    console.log('TCF componentDidUpdate ? prevState', prevState);
-    console.log('TCF componentDidUpdate ? snapshot', snapshot);
+    console.log('index componentDidUpdate ? prevProps', prevProps);
+    console.log('index componentDidUpdate ? prevState', prevState);
+    console.log('index componentDidUpdate ? snapshot', snapshot);
   }
 
   componentWillUnmount() {
-    console.log('TCF componentWillUnmount ? ?', new Date());
+    console.log('index componentWillUnmount ? ?', new Date());
   }
 
   componentDidCatch(errorString, errorInfo) {
-    console.warn('TCF componentDidCatch ? errorString', errorString);
-    console.warn('TCF componentDidCatch ? errorInfo', errorInfo);
+    console.warn('index componentDidCatch ? errorString', errorString);
+    console.warn('index componentDidCatch ? errorInfo', errorInfo);
   }
 }
 
