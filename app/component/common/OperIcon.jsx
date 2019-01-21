@@ -15,15 +15,15 @@ const menu = (
         </span>
       }
     >
-      <Menu.Item key="User">
-        <a rel="noopener noreferrer" href="User.html">
+      <Menu.Item key="user">
+        <a rel="noopener noreferrer" href="user.html">
           <Icon type="setting" /> <span>个人账号</span>
         </a>
       </Menu.Item>
     </Menu.SubMenu>
     <Menu.Divider />
-    <Menu.Item key="Admin">
-      <a rel="noopener noreferrer" href="Admin.html">
+    <Menu.Item key="admin">
+      <a rel="noopener noreferrer" href="admin.html">
         <Icon type="user" /> <span>管理员</span>
       </a>
     </Menu.Item>
