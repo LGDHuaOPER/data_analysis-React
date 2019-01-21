@@ -10,6 +10,7 @@
 
 * **all-project:** 增加：commitlint ([a9c71e2](https://github.com/LGDHuaOPER/data_analysis-React/commit/a9c71e2))
 * **comp-opericon, comp-projectanalysis:** 曲线选择，个人账号、管理员下拉菜单 ([70f5a13](https://github.com/LGDHuaOPER/data_analysis-React/commit/70f5a13))
+* **component{admin,user,rfs2p,recycle}:** 增加admin、user、RFS2P，修改recycle ([9665fe3](https://github.com/LGDHuaOPER/data_analysis-React/commit/9665fe3))
 * **package.json:** [[D增加提交信息Angular规范 ([b19ae21](https://github.com/LGDHuaOPER/data_analysis-React/commit/b19ae21))
 * **package.json README.md:** 格式化commit，生成changelog ([e0432e6](https://github.com/LGDHuaOPER/data_analysis-React/commit/e0432e6))
 * **新分支:** 增加新分支V1.0.0 ([e9f44b6](https://github.com/LGDHuaOPER/data_analysis-React/commit/e9f44b6))
