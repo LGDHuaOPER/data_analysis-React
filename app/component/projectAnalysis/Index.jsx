@@ -219,10 +219,7 @@ class Index extends React.Component {
                       dataSource={dataSource['RF-S2P']}
                       renderItem={(item) => (
                         <List.Item actions={[<Tag color="green">已开发</Tag>]}>
-                          <List.Item.Meta
-                            title={<a href="SP2.html">{item.title}</a>}
-                            description={item.description}
-                          />
+                          <List.Item.Meta title={<a href="SP2.html">{item.title}</a>} description={item.description} />
                         </List.Item>
                       )}
                     />
