@@ -3,10 +3,13 @@ data_analysis-React
 
 ## 开发日记
 - `2019/01/03`
+
     - 完成基本的开发环境搭建
 - `2019/01/04`
+
     - 添加测试、预生产、生产环境的搭建，并配置简单的代理，打包文件的压缩包增加版本号和时间
 - `2019/01/07`
+
     - 添加antd UI库，整个项目增加grid布局，css自动增加前缀，增加babel-polyfill以修复IE11报错
 - `2019/01/08`
     - 添加lodash，系统主页面入口增加，数据管理大模块增加主页面内容；
@@ -48,6 +51,7 @@ data_analysis-React
     - 增加：myUtil.js里的Hook模块
     - 修改：gulp任务自动修改myConfig.js里environment
 - `2019/01/18`
+
     - 增加：网站icon图标
 - `2019/01/20`
     - 增加：格式化git commit与自动生成changelog
@@ -116,6 +120,8 @@ data_analysis-React
     - 关键字高亮组件
 - `react-split-pane` `0.1.85`
     - 分割面板组件
+
+## 部分开发环境依赖
 - `commitizen` `-g` `cz-conventional-changelog` `2.1.0`
     - 格式化commit
 - `conventional-changelog-cli` `-g`
