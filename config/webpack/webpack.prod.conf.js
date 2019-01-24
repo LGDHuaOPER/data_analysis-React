@@ -126,6 +126,27 @@ let config = merge(baseWebpackConfig, {
         ]
       },
       {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 1
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['app/public/scss']
+            }
+          }
+        ]
+      },
+      {
         test: /_iamincss\.(png|jpg|gif|ttf|eot|woff|woff2|svg)$/,
         loader:
           'url-loader?limit=8192&name=[name].[hash:8].[ext]&publicPath=' +

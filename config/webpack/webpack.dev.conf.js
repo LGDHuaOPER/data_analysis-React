@@ -155,6 +155,27 @@ let config = merge(baseWebpackConfig, {
         ]
       },
       {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 1
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['app/public/scss']
+            }
+          }
+        ]
+      },
+      {
         test: /\.(png|jpg|gif|ttf|eot|woff|woff2|svg|swf)$/,
         loader: 'file-loader?name=[name].[ext]&outputPath=' + webpackFile.resource + '/'
       }

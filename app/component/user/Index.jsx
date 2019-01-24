@@ -4,6 +4,7 @@ import _ from 'lodash';
 import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
 import NProgress from 'nprogress';
+import Snow from '../common/Snow';
 import myUtil from '../../public/js/myUtil';
 import mockData from '../../public/js/mockData';
 import eventProxy from '../../public/js/eventProxy';
@@ -89,65 +90,7 @@ class Index extends React.Component {
   render() {
     return (
       <div className="recycle-body">
-        <div className="recycle-body__nav">
-          <Breadcrumb itemRender={myUtil.Nav.itemRenderWrap(routes)} routes={routes} separator=">" />
-        </div>
-        <div className="recycle-body__cont">
-          <div className="recycle-body__cont--opera">
-            <Row type={'flex'} align="middle" justify="space-between" gutter={0}>
-              <Col xs={22} sm={22} md={16} lg={16} xl={16} xxl={16}>
-                <ButtonGroup>
-                  <Button type="default" icon="close" title="永久删除选中" onClick={this.delSelectedOnClick} />
-                  <Button
-                    type="default"
-                    icon="undo"
-                    title="恢复选中"
-                    onClick={this.recoverSelectedOnClick.bind(this)}
-                  />
-                </ButtonGroup>
-              </Col>
-              <Col
-                style={{
-                  textAlign: ['xxl', 'xl', 'lg', 'md'].includes(myUtil.DOM.getRP()) ? 'right' : 'left',
-                  marginTop: ['xxl', 'xl', 'lg', 'md'].includes(myUtil.DOM.getRP()) ? 0 : 5
-                }}
-                xs={22}
-                sm={22}
-                md={8}
-                lg={8}
-                xl={8}
-                xxl={8}
-              >
-                <div style={{ display: 'inline-block' }}>
-                  <Search
-                    placeholder="请输入搜索值"
-                    enterButton={false}
-                    allowClear
-                    style={{ width: 300 }}
-                    onSearch={this.InputOnSearch.bind(this)}
-                    onChange={this.InputOnChange.bind(this)}
-                  />
-                </div>
-              </Col>
-            </Row>
-          </div>
-          <div className="recycle-body__cont--table" style={{ marginTop: 10 }}>
-            <DataTable
-              pagination={{
-                current: this.state.currentPage,
-                pageSize: this.state.pageSize,
-                pageSizeOptions: ['2', '5', '10', '20', '50'],
-                showSizeChanger: true,
-                showQuickJumper: true
-              }}
-              quoteDataTable={this.state.quoteDataTable}
-              searchWords={this.state.searchWords}
-              selectedRowKeys={this.state.selectedRowKeys}
-              tableData={this.state.tableData}
-              stateKeyInProps={['pagination', 'quoteDataTable', 'searchWords', 'selectedRowKeys', 'tableData']}
-            />
-          </div>
-        </div>
+          <Snow></Snow>
       </div>
     );
   }
