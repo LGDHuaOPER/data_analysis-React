@@ -1,5 +1,6 @@
 module.exports = ({ file, options, env }) => ({
-  parser: file.extname === '.sss' ? 'sugarss' : false,
+  parser: file.extname === '.sss' ? 'sugarss' : file.extname === '.scss' ? 'postcss-scss' : false,
+  syntax: file.extname === '.scss' ? 'postcss-scss' : false,
   plugins: [
     require('precss')(),
     // require('postcss-cssnext')({

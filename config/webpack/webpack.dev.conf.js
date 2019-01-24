@@ -82,7 +82,7 @@ let config = merge(baseWebpackConfig, {
       },
       {
         // test: /\.pcss$/,
-        test: /\.(css|pcss)$/,
+        test: /\.(css|pcss|scss)$/,
         // 参数importLoaders=1是为了预防css文件里面再import其他css文件，会使得import进来的不会自动加前缀
         // loader: 'style-loader?sourceMap!css-loader?importLoaders=1&sourceMap!postcss-loader?sourceMap',
         use: [

@@ -95,7 +95,7 @@ let config = merge(baseWebpackConfig, {
         exclude: /node_modules/
       },
       {
-        test: /\.(css|pcss)$/,
+        test: /\.(css|pcss|scss)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: 'css-loader!postcss-loader'
