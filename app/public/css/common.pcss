@@ -1,11 +1,17 @@
 #app {
-  span.isNotLast:hover {
-    color: #23527c;
-  }
-  span.isLast, span.isNotLast {
-    font-size: 16px;
-  }
+  opacity: 0.8;
+  z-index: 0;
   .highlightClassName {
     color: red;
   }
+}
+#appBackground {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -3;
 }

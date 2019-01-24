@@ -102,6 +102,9 @@ data_analysis-React
     - 增加：admin user RFS2P模块；修改：recycle模块位置
 - `2019/01/22`
     - 增加：TCF.jsx
+- `2019/01/25`
+    - 增加：Snow组件（背景雪花效果）
+    - 增加：postcss-syntax依赖以及其他的postcss syntaxes
     
 ## 生产环境依赖或第三方库
 - `antd` `3.12.1`
