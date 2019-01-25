@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Breadcrumb, Row, Col, Button, Icon, Input, Divider, Tag, Modal, message, notification } from 'antd';
+import { Breadcrumb, Row, Col, Button, Icon, Input, Modal, message, notification } from 'antd';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
@@ -297,39 +297,47 @@ class Index extends React.Component {
       _.forOwn(val, function(v, k) {
         if (!['key'].includes(k)) {
           if (_.isNumber(v) || _.isString(v)) {
-            let flag1 = _.toString(v).includes(value);
-            flag = flag1;
+            flag = _.toString(v).includes(value);
             if (flag) return false;
           } else if (_.isArray(v) || _.isObject(v)) {
             let valArr = _.isArray(v) ? v : _.values(v);
-            let flag2 = _.without(valArr, undefined, null)
+            flag = _.without(valArr, undefined, null)
               .map(function(vv) {
                 return _.isNumber(vv) ? _.toString(vv) : vv;
               })
               .includes(value);
-            flag = flag2;
             if (flag) return false;
           }
         }
       });
       return flag;
     });
-    this.setState({
-      currentPage: 1,
-      tableData: tableData,
-      searchWords: [value]
-    });
+    this.setState(
+      {
+        currentPage: 1,
+        tableData: tableData,
+        searchWords: [value]
+      },
+      () => {
+        eventProxy.trigger('dataList__SnowResize');
+      }
+    );
   }
 
   InputOnChange(e) {
     if (_.eq(_.trim(e.currentTarget.value), '')) {
       let inow = dayjs().valueOf();
       if (inow - this.dataStore.lastEmptyDate > 3000) {
-        this.setState({
-          currentPage: 1,
-          tableData: _.cloneDeep(allTableData),
-          searchWords: []
-        });
+        this.setState(
+          {
+            currentPage: 1,
+            tableData: _.cloneDeep(allTableData),
+            searchWords: []
+          },
+          () => {
+            eventProxy.trigger('dataList__SnowResize');
+          }
+        );
       }
       this.dataStore.lastEmptyDate = inow;
     }

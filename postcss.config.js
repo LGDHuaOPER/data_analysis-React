@@ -2,6 +2,7 @@ const syntax = require('postcss-syntax')({
   rules: [
     {
       test: /\.(?:[sx]?html?|[sx]ht|vue|ux|php)$/i,
+      /*有extract.js*/
       extract: 'html'
     },
     {
