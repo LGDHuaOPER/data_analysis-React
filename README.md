@@ -53,8 +53,7 @@ data_analysis-React
     - 增加：myUtil.js里的Hook模块
     - 修改：gulp任务自动修改myConfig.js里environment
 - `2019/01/18`
-
-    - 增加：网站icon图标
+    - 增加：网站icon图标和收藏夹里的图标
 - `2019/01/20`
     - 增加：格式化git commit与自动生成changelog
         ```
@@ -107,6 +106,8 @@ data_analysis-React
 - `2019/01/25`
     - 增加：Snow组件（背景雪花效果）
     - 增加：postcss-syntax依赖以及其他的postcss syntaxes
+- `2019/01/26`
+    - 优化：Snow组件高度自适应，雪花摇摆不溢出屏幕
     
 ## 生产环境依赖或第三方库
 - `antd` `3.12.1`

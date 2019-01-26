@@ -89,6 +89,7 @@ class Snow extends React.Component {
       document.documentElement.clientHeight || document.body.clientHeight,
       document.getElementById('app').clientHeight
     );
+    H--;
     document.getElementById('appBackground').style.height = H + 'px';
   }
 }
