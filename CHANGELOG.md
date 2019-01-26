@@ -1,4 +1,4 @@
-# 1.0.0 (2019-01-25)
+# 1.0.0 (2019-01-26)
 
 
 ### chore
@@ -19,6 +19,11 @@
 * **sass-loader:** 增加配置 ([a1732cf](https://github.com/LGDHuaOPER/data_analysis-React/commit/a1732cf))
 * **新分支:** 增加新分支V1.0.0 ([e9f44b6](https://github.com/LGDHuaOPER/data_analysis-React/commit/e9f44b6))
 * **版本回退:** 版本回退，删除分支 ([a528a5a](https://github.com/LGDHuaOPER/data_analysis-React/commit/a528a5a))
+
+
+### Performance Improvements
+
+* **snow.jsx:** 优化 ([fef8231](https://github.com/LGDHuaOPER/data_analysis-React/commit/fef8231))
 
 
 ### BREAKING CHANGES
